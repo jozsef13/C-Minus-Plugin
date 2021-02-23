@@ -1,0 +1,20 @@
+{
+parserClass = "com.plugin.project.language.parser.CMinusParser"
+
+extends = "com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+psiClassPrefix = "CMinus"
+psiImplClassSuffix = "Impl"
+psiPackage = "com.plugin.project.language.psi"
+psiImplPackage = "com.plugin.project.language.psi.impl"
+
+elementTypeHolderClass = "com.plugin.project.language.psi.CMinusTypes"
+elementTypeClass = "com.plugin.project.language.psi.CMinusElementType"
+tokenTypeClass = "com.plugin.project.language.psi.CMinusTokenType"
+}
+
+cminusFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY

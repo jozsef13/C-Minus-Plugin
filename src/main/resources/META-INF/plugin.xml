@@ -1,19 +1,23 @@
 <idea-plugin>
     <id>com.plugin.project.Intellij-IDEA-Plugin</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>SDK: C- Language Support</name>
+    <vendor email="gabriel.simon980@gmail.com" url="">Simon Jozsef Gabriel</vendor>
 
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-    ]]></description>
+    <description>
+        <![CDATA[
+      Plugin to add custom language support to an IntelliJ Platform-based IDE. <br>Defines a new language,
+      <i>C- language</i> with support for syntax highlighting, annotations, code completion, and other features.
+      <br>
+    ]]>
+    </description>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <fileType name="CMinus File" implementationClass="com.plugin.project.language.CMinusFileType" fieldName="INSTANCE" language="CMinus" extensions="cmin" />
+        <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.CMinusParserDefinition" />
     </extensions>
 
     <actions>

@@ -16,23 +16,26 @@ public class CMinusFileType extends LanguageFileType {
     }
 
     @Override
-    public @NonNls
-    @NotNull String getName() {
+    @NotNull
+    public String getName() {
         return "CMinus File";
     }
 
     @Override
-    public @NotNull String getDescription() {
+    @NotNull
+    public String getDescription() {
         return "CMinus language file";
     }
 
     @Override
-    public @NotNull String getDefaultExtension() {
+    @NotNull
+    public String getDefaultExtension() {
         return "cmin";
     }
 
     @Override
-    public @Nullable Icon getIcon() {
+    @Nullable
+    public Icon getIcon() {
         return CMinusIcons.FILE;
     }
 }
