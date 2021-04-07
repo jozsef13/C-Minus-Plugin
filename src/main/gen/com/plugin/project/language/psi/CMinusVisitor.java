@@ -7,7 +7,115 @@ import com.intellij.psi.PsiElement;
 
 public class CMinusVisitor extends PsiElementVisitor {
 
-  public void visitProperty(@NotNull CMinusProperty o) {
+  public void visitAddOperation(@NotNull CMinusAddOperation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitAdditiveExpression(@NotNull CMinusAdditiveExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArgList(@NotNull CMinusArgList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArgs(@NotNull CMinusArgs o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCall(@NotNull CMinusCall o) {
+    visitPsiElement(o);
+  }
+
+  public void visitCompoundStmt(@NotNull CMinusCompoundStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDeclaration(@NotNull CMinusDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDeclarationList(@NotNull CMinusDeclarationList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExpression(@NotNull CMinusExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExpressionStmt(@NotNull CMinusExpressionStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFactor(@NotNull CMinusFactor o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunDeclaration(@NotNull CMinusFunDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIterationStmt(@NotNull CMinusIterationStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLocalDeclarations(@NotNull CMinusLocalDeclarations o) {
+    visitPsiElement(o);
+  }
+
+  public void visitMulOperation(@NotNull CMinusMulOperation o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParam(@NotNull CMinusParam o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParamList(@NotNull CMinusParamList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitParams(@NotNull CMinusParams o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRelOperations(@NotNull CMinusRelOperations o) {
+    visitPsiElement(o);
+  }
+
+  public void visitReturnStmt(@NotNull CMinusReturnStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSelectionStmt(@NotNull CMinusSelectionStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSimpleExpression(@NotNull CMinusSimpleExpression o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStatement(@NotNull CMinusStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStatementList(@NotNull CMinusStatementList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTerm(@NotNull CMinusTerm o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypeSpecifier(@NotNull CMinusTypeSpecifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVar(@NotNull CMinusVar o) {
+    visitPsiElement(o);
+  }
+
+  public void visitVarDeclaration(@NotNull CMinusVarDeclaration o) {
     visitPsiElement(o);
   }
 

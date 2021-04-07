@@ -11,20 +11,26 @@ import static com.plugin.project.language.psi.CMinusTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.plugin.project.language.psi.*;
 
-public class CMinusPropertyImpl extends ASTWrapperPsiElement implements CMinusProperty {
+public class CMinusReturnStmtImpl extends ASTWrapperPsiElement implements CMinusReturnStmt {
 
-  public CMinusPropertyImpl(@NotNull ASTNode node) {
+  public CMinusReturnStmtImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CMinusVisitor visitor) {
-    visitor.visitProperty(this);
+    visitor.visitReturnStmt(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof CMinusVisitor) accept((CMinusVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public CMinusExpression getExpression() {
+    return findChildByClass(CMinusExpression.class);
   }
 
 }
