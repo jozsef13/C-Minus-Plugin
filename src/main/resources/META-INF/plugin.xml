@@ -18,6 +18,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="CMinus File" implementationClass="com.plugin.project.language.CMinusFileType" fieldName="INSTANCE" language="CMinus" extensions="cmin" />
         <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.CMinusParserDefinition" />
+        <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusSyntaxHighlighterFactory" />
+        <colorSettingsPage implementation="com.plugin.project.language.CMinusColorSettingsPage" />
     </extensions>
 
 </idea-plugin>
