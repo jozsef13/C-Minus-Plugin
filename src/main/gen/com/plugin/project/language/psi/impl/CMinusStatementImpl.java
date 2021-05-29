@@ -47,6 +47,12 @@ public class CMinusStatementImpl extends ASTWrapperPsiElement implements CMinusS
 
   @Override
   @Nullable
+  public CMinusReadStatement getReadStatement() {
+    return findChildByClass(CMinusReadStatement.class);
+  }
+
+  @Override
+  @Nullable
   public CMinusReturnStmt getReturnStmt() {
     return findChildByClass(CMinusReturnStmt.class);
   }
@@ -55,6 +61,18 @@ public class CMinusStatementImpl extends ASTWrapperPsiElement implements CMinusS
   @Nullable
   public CMinusSelectionStmt getSelectionStmt() {
     return findChildByClass(CMinusSelectionStmt.class);
+  }
+
+  @Override
+  @Nullable
+  public CMinusWriteStatement getWriteStatement() {
+    return findChildByClass(CMinusWriteStatement.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getComment() {
+    return findChildByType(COMMENT);
   }
 
 }

@@ -28,15 +28,9 @@ public class CMinusStatementListImpl extends ASTWrapperPsiElement implements CMi
   }
 
   @Override
-  @Nullable
-  public CMinusStatement getStatement() {
-    return findChildByClass(CMinusStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public CMinusStatementList getStatementList() {
-    return findChildByClass(CMinusStatementList.class);
+  @NotNull
+  public CMinusStatementList1 getStatementList1() {
+    return findNotNullChildByClass(CMinusStatementList1.class);
   }
 
 }

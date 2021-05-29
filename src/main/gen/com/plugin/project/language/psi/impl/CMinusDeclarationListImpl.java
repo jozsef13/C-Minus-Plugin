@@ -35,8 +35,8 @@ public class CMinusDeclarationListImpl extends ASTWrapperPsiElement implements C
 
   @Override
   @Nullable
-  public CMinusDeclarationList getDeclarationList() {
-    return findChildByClass(CMinusDeclarationList.class);
+  public CMinusDeclarationList1 getDeclarationList1() {
+    return findChildByClass(CMinusDeclarationList1.class);
   }
 
 }

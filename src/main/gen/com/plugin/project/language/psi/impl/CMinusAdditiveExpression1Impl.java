@@ -11,14 +11,14 @@ import static com.plugin.project.language.psi.CMinusTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.plugin.project.language.psi.*;
 
-public class CMinusTermImpl extends ASTWrapperPsiElement implements CMinusTerm {
+public class CMinusAdditiveExpression1Impl extends ASTWrapperPsiElement implements CMinusAdditiveExpression1 {
 
-  public CMinusTermImpl(@NotNull ASTNode node) {
+  public CMinusAdditiveExpression1Impl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull CMinusVisitor visitor) {
-    visitor.visitTerm(this);
+    visitor.visitAdditiveExpression1(this);
   }
 
   @Override
@@ -28,15 +28,21 @@ public class CMinusTermImpl extends ASTWrapperPsiElement implements CMinusTerm {
   }
 
   @Override
-  @NotNull
-  public CMinusFactor getFactor() {
-    return findNotNullChildByClass(CMinusFactor.class);
+  @Nullable
+  public CMinusAddOperation getAddOperation() {
+    return findChildByClass(CMinusAddOperation.class);
   }
 
   @Override
   @Nullable
-  public CMinusTerm1 getTerm1() {
-    return findChildByClass(CMinusTerm1.class);
+  public CMinusAdditiveExpression1 getAdditiveExpression1() {
+    return findChildByClass(CMinusAdditiveExpression1.class);
+  }
+
+  @Override
+  @Nullable
+  public CMinusTerm getTerm() {
+    return findChildByClass(CMinusTerm.class);
   }
 
 }

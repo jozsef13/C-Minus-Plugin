@@ -15,7 +15,15 @@ public class CMinusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitAdditiveExpression1(@NotNull CMinusAdditiveExpression1 o) {
+    visitPsiElement(o);
+  }
+
   public void visitArgList(@NotNull CMinusArgList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitArgList1(@NotNull CMinusArgList1 o) {
     visitPsiElement(o);
   }
 
@@ -36,6 +44,10 @@ public class CMinusVisitor extends PsiElementVisitor {
   }
 
   public void visitDeclarationList(@NotNull CMinusDeclarationList o) {
+    visitPsiElement(o);
+  }
+
+  public void visitDeclarationList1(@NotNull CMinusDeclarationList1 o) {
     visitPsiElement(o);
   }
 
@@ -75,7 +87,19 @@ public class CMinusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitParamList1(@NotNull CMinusParamList1 o) {
+    visitPsiElement(o);
+  }
+
   public void visitParams(@NotNull CMinusParams o) {
+    visitPsiElement(o);
+  }
+
+  public void visitProgram(@NotNull CMinusProgram o) {
+    visitPsiElement(o);
+  }
+
+  public void visitReadStatement(@NotNull CMinusReadStatement o) {
     visitPsiElement(o);
   }
 
@@ -103,7 +127,15 @@ public class CMinusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitStatementList1(@NotNull CMinusStatementList1 o) {
+    visitPsiElement(o);
+  }
+
   public void visitTerm(@NotNull CMinusTerm o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTerm1(@NotNull CMinusTerm1 o) {
     visitPsiElement(o);
   }
 
@@ -116,6 +148,10 @@ public class CMinusVisitor extends PsiElementVisitor {
   }
 
   public void visitVarDeclaration(@NotNull CMinusVarDeclaration o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWriteStatement(@NotNull CMinusWriteStatement o) {
     visitPsiElement(o);
   }
 

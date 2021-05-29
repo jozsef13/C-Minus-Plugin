@@ -11,16 +11,13 @@
     ]]>
     </description>
 
-    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
+    <!-- Product and plugin compatibility requirements -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="CMinus File" implementationClass="com.plugin.project.language.CMinusFileType" fieldName="INSTANCE" language="CMinus" extensions="cmin" />
         <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.CMinusParserDefinition" />
     </extensions>
 
-    <actions>
-        <!-- Add your actions here -->
-    </actions>
 </idea-plugin>

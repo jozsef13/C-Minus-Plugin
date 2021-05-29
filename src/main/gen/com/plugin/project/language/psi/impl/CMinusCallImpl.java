@@ -28,9 +28,9 @@ public class CMinusCallImpl extends ASTWrapperPsiElement implements CMinusCall {
   }
 
   @Override
-  @NotNull
+  @Nullable
   public CMinusArgs getArgs() {
-    return findNotNullChildByClass(CMinusArgs.class);
+    return findChildByClass(CMinusArgs.class);
   }
 
   @Override

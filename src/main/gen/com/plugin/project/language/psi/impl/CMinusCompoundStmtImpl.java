@@ -28,15 +28,15 @@ public class CMinusCompoundStmtImpl extends ASTWrapperPsiElement implements CMin
   }
 
   @Override
-  @NotNull
+  @Nullable
   public CMinusLocalDeclarations getLocalDeclarations() {
-    return findNotNullChildByClass(CMinusLocalDeclarations.class);
+    return findChildByClass(CMinusLocalDeclarations.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public CMinusStatementList getStatementList() {
-    return findNotNullChildByClass(CMinusStatementList.class);
+    return findChildByClass(CMinusStatementList.class);
   }
 
 }

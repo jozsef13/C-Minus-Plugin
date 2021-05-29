@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.7.1'
+    id 'org.jetbrains.intellij' version '0.7.3'
 }
 
 group 'com.plugin.project'
@@ -15,15 +15,20 @@ repositories {
 sourceSets.main.java.srcDirs 'src/main/gen'
 
 dependencies {
-    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 
-// See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version '2020.3.2'
+    version = '2020.2.4'
+    plugins = ['com.intellij.java']
 }
+
+buildSearchableOptions {
+    enabled = false
+}
+
 patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+    version = project.version
+    sinceBuild = '202'
+    untilBuild = '203.*'
 }

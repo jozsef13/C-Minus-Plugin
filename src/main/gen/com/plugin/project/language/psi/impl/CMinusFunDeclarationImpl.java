@@ -34,9 +34,9 @@ public class CMinusFunDeclarationImpl extends ASTWrapperPsiElement implements CM
   }
 
   @Override
-  @NotNull
+  @Nullable
   public CMinusParams getParams() {
-    return findNotNullChildByClass(CMinusParams.class);
+    return findChildByClass(CMinusParams.class);
   }
 
   @Override

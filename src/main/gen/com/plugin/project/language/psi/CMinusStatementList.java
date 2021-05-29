@@ -7,10 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface CMinusStatementList extends PsiElement {
 
-  @Nullable
-  CMinusStatement getStatement();
-
-  @Nullable
-  CMinusStatementList getStatementList();
+  @NotNull
+  CMinusStatementList1 getStatementList1();
 
 }

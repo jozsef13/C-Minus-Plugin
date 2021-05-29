@@ -10,7 +10,7 @@ public interface CMinusParamList extends PsiElement {
   @NotNull
   CMinusParam getParam();
 
-  @Nullable
-  CMinusParamList getParamList();
+  @NotNull
+  CMinusParamList1 getParamList1();
 
 }

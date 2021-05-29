@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface CMinusArgList extends PsiElement {
 
   @Nullable
-  CMinusArgList getArgList();
+  CMinusArgList1 getArgList1();
 
   @NotNull
   CMinusExpression getExpression();

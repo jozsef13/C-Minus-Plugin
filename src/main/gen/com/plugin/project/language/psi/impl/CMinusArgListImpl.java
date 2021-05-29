@@ -29,8 +29,8 @@ public class CMinusArgListImpl extends ASTWrapperPsiElement implements CMinusArg
 
   @Override
   @Nullable
-  public CMinusArgList getArgList() {
-    return findChildByClass(CMinusArgList.class);
+  public CMinusArgList1 getArgList1() {
+    return findChildByClass(CMinusArgList1.class);
   }
 
   @Override

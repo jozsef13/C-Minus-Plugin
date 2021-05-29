@@ -51,4 +51,10 @@ public class CMinusFactorImpl extends ASTWrapperPsiElement implements CMinusFact
     return findChildByType(NUM);
   }
 
+  @Override
+  @Nullable
+  public PsiElement getStringLiteral() {
+    return findChildByType(STRING_LITERAL);
+  }
+
 }

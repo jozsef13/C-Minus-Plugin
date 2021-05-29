@@ -29,8 +29,8 @@ public class CMinusReturnStmtImpl extends ASTWrapperPsiElement implements CMinus
 
   @Override
   @Nullable
-  public CMinusExpression getExpression() {
-    return findChildByClass(CMinusExpression.class);
+  public CMinusSimpleExpression getSimpleExpression() {
+    return findChildByClass(CMinusSimpleExpression.class);
   }
 
 }

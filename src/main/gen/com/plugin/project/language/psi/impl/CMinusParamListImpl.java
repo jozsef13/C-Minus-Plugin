@@ -34,9 +34,9 @@ public class CMinusParamListImpl extends ASTWrapperPsiElement implements CMinusP
   }
 
   @Override
-  @Nullable
-  public CMinusParamList getParamList() {
-    return findChildByClass(CMinusParamList.class);
+  @NotNull
+  public CMinusParamList1 getParamList1() {
+    return findNotNullChildByClass(CMinusParamList1.class);
   }
 
 }

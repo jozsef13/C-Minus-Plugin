@@ -11,9 +11,6 @@ public interface CMinusTerm extends PsiElement {
   CMinusFactor getFactor();
 
   @Nullable
-  CMinusMulOperation getMulOperation();
-
-  @Nullable
-  CMinusTerm getTerm();
+  CMinusTerm1 getTerm1();
 
 }

@@ -11,6 +11,6 @@ public interface CMinusDeclarationList extends PsiElement {
   CMinusDeclaration getDeclaration();
 
   @Nullable
-  CMinusDeclarationList getDeclarationList();
+  CMinusDeclarationList1 getDeclarationList1();
 
 }

@@ -29,14 +29,8 @@ public class CMinusAdditiveExpressionImpl extends ASTWrapperPsiElement implement
 
   @Override
   @Nullable
-  public CMinusAddOperation getAddOperation() {
-    return findChildByClass(CMinusAddOperation.class);
-  }
-
-  @Override
-  @Nullable
-  public CMinusAdditiveExpression getAdditiveExpression() {
-    return findChildByClass(CMinusAdditiveExpression.class);
+  public CMinusAdditiveExpression1 getAdditiveExpression1() {
+    return findChildByClass(CMinusAdditiveExpression1.class);
   }
 
   @Override

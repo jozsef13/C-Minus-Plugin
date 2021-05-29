@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CMinusCall extends PsiElement {
+public interface CMinusParamList1 extends PsiElement {
 
   @Nullable
-  CMinusArgs getArgs();
+  CMinusParam getParam();
 
-  @NotNull
-  PsiElement getId();
+  @Nullable
+  CMinusParamList1 getParamList1();
 
 }

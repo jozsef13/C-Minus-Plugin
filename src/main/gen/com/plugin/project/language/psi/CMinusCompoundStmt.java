@@ -7,10 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface CMinusCompoundStmt extends PsiElement {
 
-  @NotNull
+  @Nullable
   CMinusLocalDeclarations getLocalDeclarations();
 
-  @NotNull
+  @Nullable
   CMinusStatementList getStatementList();
 
 }

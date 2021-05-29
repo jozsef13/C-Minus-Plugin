@@ -8,10 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface CMinusAdditiveExpression extends PsiElement {
 
   @Nullable
-  CMinusAddOperation getAddOperation();
-
-  @Nullable
-  CMinusAdditiveExpression getAdditiveExpression();
+  CMinusAdditiveExpression1 getAdditiveExpression1();
 
   @NotNull
   CMinusTerm getTerm();

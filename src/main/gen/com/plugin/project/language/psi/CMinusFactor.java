@@ -19,4 +19,7 @@ public interface CMinusFactor extends PsiElement {
   @Nullable
   PsiElement getNum();
 
+  @Nullable
+  PsiElement getStringLiteral();
+
 }

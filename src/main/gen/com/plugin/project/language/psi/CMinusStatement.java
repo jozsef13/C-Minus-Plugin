@@ -17,9 +17,18 @@ public interface CMinusStatement extends PsiElement {
   CMinusIterationStmt getIterationStmt();
 
   @Nullable
+  CMinusReadStatement getReadStatement();
+
+  @Nullable
   CMinusReturnStmt getReturnStmt();
 
   @Nullable
   CMinusSelectionStmt getSelectionStmt();
+
+  @Nullable
+  CMinusWriteStatement getWriteStatement();
+
+  @Nullable
+  PsiElement getComment();
 
 }

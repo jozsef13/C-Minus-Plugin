@@ -10,7 +10,7 @@ public interface CMinusFunDeclaration extends PsiElement {
   @NotNull
   CMinusCompoundStmt getCompoundStmt();
 
-  @NotNull
+  @Nullable
   CMinusParams getParams();
 
   @NotNull
