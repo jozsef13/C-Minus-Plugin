@@ -13,4 +13,6 @@ public interface CMinusVar extends PsiElement {
   @NotNull
   PsiElement getId();
 
+  String getVarId();
+
 }

@@ -51,4 +51,9 @@ public class CMinusFunDeclarationImpl extends ASTWrapperPsiElement implements CM
     return findNotNullChildByType(ID);
   }
 
+  @Override
+  public String getFunDeclId() {
+    return CMinusPsiImplUtil.getFunDeclId(this);
+  }
+
 }

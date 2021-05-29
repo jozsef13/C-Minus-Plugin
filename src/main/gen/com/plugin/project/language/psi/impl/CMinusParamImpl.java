@@ -39,4 +39,9 @@ public class CMinusParamImpl extends ASTWrapperPsiElement implements CMinusParam
     return findNotNullChildByType(ID);
   }
 
+  @Override
+  public String getParamId() {
+    return CMinusPsiImplUtil.getParamId(this);
+  }
+
 }

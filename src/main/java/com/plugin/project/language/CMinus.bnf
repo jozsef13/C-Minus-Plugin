@@ -62,7 +62,7 @@ elementTypeHolderClass = "com.plugin.project.language.psi.CMinusTypes"
 elementTypeClass = "com.plugin.project.language.psi.CMinusElementType"
 tokenTypeClass = "com.plugin.project.language.psi.CMinusTokenType"
 
-psiImplUtilClass="com.plugin.project.language.psi.CMinusPsiImplUtil"
+psiImplUtilClass="com.plugin.project.language.psi.impl.CMinusPsiImplUtil"
 }
 
 CMinusFile ::= program*
@@ -75,11 +75,11 @@ declaration_list1 ::= declaration declaration_list1? | /*epsilon*/
 
 declaration ::= var_declaration | fun_declaration
 
-var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION
+var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION {methods=[getVarDeclId]}
 
 type_specifier ::= INT | VOID | CHAR | FLOAT | DOUBLE | BOOL
 
-fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS compound_stmt
+fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS compound_stmt {methods=[getFunDeclId]}
 
 params ::= param_list | VOID
 
@@ -87,7 +87,7 @@ param_list ::= param param_list1
 
 param_list1 ::= COMMA param param_list1? | /*epsilon*/
 
-param ::= type_specifier ID | type_specifier ID LEFT_BRACKET RIGHT_BRACKET
+param ::= type_specifier ID | type_specifier ID LEFT_BRACKET RIGHT_BRACKET {methods=[getParamId]}
 
 compound_stmt ::= LEFT_BRACE local_declarations? statement_list? RIGHT_BRACE
 
@@ -113,7 +113,7 @@ read_statement ::= CIN READ var END_OF_INSTRUCTION
 
 write_statement ::= COUT WRITE expression END_OF_INSTRUCTION
 
-var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET
+var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET {methods=[getVarId]}
 
 simple_expression ::= additive_expression rel_operations additive_expression | additive_expression
 
@@ -133,7 +133,7 @@ mul_operation ::= MULTIPLY | DIVIDE
 
 factor ::= call | NUM | STRING_LITERAL | TRUE | FALSE | LEFT_PARANTHESIS expression RIGHT_PARANTHESIS | var
 
-call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS
+call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS {methods=[getCallId]}
 
 args ::= arg_list | /*epsilon*/
 

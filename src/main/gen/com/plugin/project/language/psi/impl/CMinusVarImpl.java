@@ -39,4 +39,9 @@ public class CMinusVarImpl extends ASTWrapperPsiElement implements CMinusVar {
     return findNotNullChildByType(ID);
   }
 
+  @Override
+  public String getVarId() {
+    return CMinusPsiImplUtil.getVarId(this);
+  }
+
 }

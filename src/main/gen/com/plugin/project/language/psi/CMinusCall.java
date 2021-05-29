@@ -13,4 +13,6 @@ public interface CMinusCall extends PsiElement {
   @NotNull
   PsiElement getId();
 
+  String getCallId();
+
 }

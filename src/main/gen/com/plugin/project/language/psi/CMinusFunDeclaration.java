@@ -19,4 +19,6 @@ public interface CMinusFunDeclaration extends PsiElement {
   @NotNull
   PsiElement getId();
 
+  String getFunDeclId();
+
 }

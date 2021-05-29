@@ -16,4 +16,6 @@ public interface CMinusVarDeclaration extends PsiElement {
   @Nullable
   PsiElement getNum();
 
+  String getVarDeclId();
+
 }

@@ -13,4 +13,6 @@ public interface CMinusParam extends PsiElement {
   @NotNull
   PsiElement getId();
 
+  String getParamId();
+
 }

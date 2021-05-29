@@ -45,4 +45,9 @@ public class CMinusVarDeclarationImpl extends ASTWrapperPsiElement implements CM
     return findChildByType(NUM);
   }
 
+  @Override
+  public String getVarDeclId() {
+    return CMinusPsiImplUtil.getVarDeclId(this);
+  }
+
 }

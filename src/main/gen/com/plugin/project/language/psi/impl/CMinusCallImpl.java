@@ -39,4 +39,9 @@ public class CMinusCallImpl extends ASTWrapperPsiElement implements CMinusCall {
     return findNotNullChildByType(ID);
   }
 
+  @Override
+  public String getCallId() {
+    return CMinusPsiImplUtil.getCallId(this);
+  }
+
 }
