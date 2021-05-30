@@ -21,6 +21,7 @@
         <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusSyntaxHighlighterFactory" />
         <colorSettingsPage implementation="com.plugin.project.language.CMinusColorSettingsPage" />
         <annotator language="JAVA" implementationClass="com.plugin.project.language.CMinusAnnotator" />
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.CMinusLineMarkerProvider"/>
     </extensions>
 
 </idea-plugin>
