@@ -83,7 +83,7 @@ fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS
 
 params ::= param_list | VOID
 
-param_list ::= param param_list1
+param_list ::= param param_list1?
 
 param_list1 ::= COMMA param param_list1? | /*epsilon*/
 

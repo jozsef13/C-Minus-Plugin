@@ -20,6 +20,7 @@
         <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.CMinusParserDefinition" />
         <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusSyntaxHighlighterFactory" />
         <colorSettingsPage implementation="com.plugin.project.language.CMinusColorSettingsPage" />
+        <annotator language="JAVA" implementationClass="com.plugin.project.language.CMinusAnnotator" />
     </extensions>
 
 </idea-plugin>

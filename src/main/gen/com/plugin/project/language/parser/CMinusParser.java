@@ -534,15 +534,22 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // param param_list1
+  // param param_list1?
   public static boolean param_list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "param_list")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PARAM_LIST, "<param list>");
     r = param(b, l + 1);
-    r = r && param_list1(b, l + 1);
+    r = r && param_list_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  // param_list1?
+  private static boolean param_list_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "param_list_1")) return false;
+    param_list1(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

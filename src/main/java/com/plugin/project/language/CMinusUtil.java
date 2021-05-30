@@ -16,35 +16,51 @@ import java.util.List;
 
 public class CMinusUtil {
 
-    public static List<PsiElement> findProperties(Project project, String id){
+    public static List<PsiElement> findReferences(Project project, String id){
         List<PsiElement> result = new ArrayList<>();
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
             CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (cMinusFile != null) {
-                PsiElement[] properties = PsiTreeUtil.getChildrenOfType(cMinusFile, PsiElement.class);
-                if (properties != null) {
-                    for (PsiElement property : properties) {
-                        String propertyId = "";
-                        if(property instanceof CMinusCall){
-                            propertyId = ((CMinusCall)property).getCallId();
-                        } else if(property instanceof CMinusFunDeclaration){
-                            propertyId = ((CMinusFunDeclaration)property).getFunDeclId();
-                        } else if(property instanceof CMinusParam){
-                            propertyId = ((CMinusParam)property).getParamId();
-                        } else if(property instanceof CMinusVar){
-                            propertyId = ((CMinusVar)property).getVarId();
-                        } else if(property instanceof CMinusVarDeclaration){
-                            propertyId = ((CMinusVarDeclaration)property).getVarDeclId();
-                        }
+                Collection<PsiElement> references = PsiTreeUtil.findChildrenOfType(cMinusFile, PsiElement.class);
+                for (PsiElement reference : references) {
+                    String referenceId = "";
+                    if(reference instanceof CMinusCall){
+                        referenceId = ((CMinusCall)reference).getCallId();
+                    } else if(reference instanceof CMinusFunDeclaration){
+                        referenceId = ((CMinusFunDeclaration)reference).getFunDeclId();
+                    } else if(reference instanceof CMinusParam){
+                        referenceId = ((CMinusParam)reference).getParamId();
+                    } else if(reference instanceof CMinusVar){
+                        referenceId = ((CMinusVar)reference).getVarId();
+                    } else if(reference instanceof CMinusVarDeclaration){
+                        referenceId = ((CMinusVarDeclaration)reference).getVarDeclId();
+                    }
 
-                        if(!propertyId.isEmpty()){
-                            if (id.equals(propertyId)) {
-                                result.add(property);
-                            }
+                    if(!referenceId.isEmpty()){
+                        if (id.equals(referenceId)) {
+                            result.add(reference);
                         }
+                    }
 
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<CMinusFunDeclaration> findFunctionReferences(Project project, String id){
+        List<CMinusFunDeclaration> result = new ArrayList<>();
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (cMinusFile != null) {
+                Collection<CMinusFunDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusFunDeclaration.class);
+                for (CMinusFunDeclaration reference : references) {
+                    if (id.equals(reference.getFunDeclId())) {
+                        result.add(reference);
                     }
                 }
             }
@@ -52,16 +68,16 @@ public class CMinusUtil {
         return result;
     }
 
-    public static List<PsiElement> findProperties(Project project) {
-        List<PsiElement> result = new ArrayList<>();
+    public static List<CMinusFunDeclaration> findFunctionReferences(Project project) {
+        List<CMinusFunDeclaration> result = new ArrayList<>();
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
             CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (cMinusFile != null) {
-                PsiElement[] properties = PsiTreeUtil.getChildrenOfType(cMinusFile, PsiElement.class);
-                if (properties != null) {
-                    Collections.addAll(result, properties);
+                CMinusFunDeclaration[] references = PsiTreeUtil.getChildrenOfType(cMinusFile, CMinusFunDeclaration.class);
+                if (references != null) {
+                    Collections.addAll(result, references);
                 }
             }
         }
