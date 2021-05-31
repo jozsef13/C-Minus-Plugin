@@ -64,7 +64,7 @@ public class CMinusVisitor extends PsiElementVisitor {
   }
 
   public void visitFunDeclaration(@NotNull CMinusFunDeclaration o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitIterationStmt(@NotNull CMinusIterationStmt o) {
@@ -148,10 +148,14 @@ public class CMinusVisitor extends PsiElementVisitor {
   }
 
   public void visitVarDeclaration(@NotNull CMinusVarDeclaration o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitWriteStatement(@NotNull CMinusWriteStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull CMinusNamedElement o) {
     visitPsiElement(o);
   }
 

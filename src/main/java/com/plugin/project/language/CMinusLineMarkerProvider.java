@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
 import com.intellij.psi.impl.source.tree.java.PsiJavaTokenImpl;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
+import com.plugin.project.language.psi.CMinusVarDeclaration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -29,16 +30,25 @@ public class CMinusLineMarkerProvider extends RelatedItemLineMarkerProvider {
         }
 
         Project project = element.getProject();
-        String possibleFunctionReferences = value.substring(
+        String possibleReferences = value.substring(
                 CMinusAnnotator.CMINUS_PREFIX_STR.length() + CMinusAnnotator.CMINUS_SEPARATOR_STR.length()
         );
-        final List<CMinusFunDeclaration> functionReferences = CMinusUtil.findFunctionReferences(project, possibleFunctionReferences);
+
+        final List<CMinusFunDeclaration> functionReferences = CMinusUtil.findFunctionReferences(project, possibleReferences);
         if (functionReferences.size() > 0) {
-            // Add the property to a collection of line marker info
             NavigationGutterIconBuilder<PsiElement> builder =
                     NavigationGutterIconBuilder.create(CMinusIcons.FILE)
                             .setTargets(functionReferences)
                             .setTooltipText("Navigate to CMinus language function reference");
+            result.add(builder.createLineMarkerInfo(element));
+        }
+
+        final List<CMinusVarDeclaration> variableReferences = CMinusUtil.findVariableReferences(project, possibleReferences);
+        if (variableReferences.size() > 0) {
+            NavigationGutterIconBuilder<PsiElement> builder =
+                    NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                            .setTargets(variableReferences)
+                            .setTooltipText("Navigate to CMinus language variable reference");
             result.add(builder.createLineMarkerInfo(element));
         }
     }

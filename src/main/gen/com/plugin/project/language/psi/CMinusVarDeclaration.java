@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CMinusVarDeclaration extends PsiElement {
+public interface CMinusVarDeclaration extends CMinusNamedElement {
 
   @NotNull
   CMinusTypeSpecifier getTypeSpecifier();
@@ -17,5 +17,11 @@ public interface CMinusVarDeclaration extends PsiElement {
   PsiElement getNum();
 
   String getVarDeclId();
+
+  String getName();
+
+  PsiElement setName(String newName);
+
+  PsiElement getNameIdentifier();
 
 }

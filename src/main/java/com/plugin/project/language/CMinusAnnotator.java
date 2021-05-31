@@ -9,6 +9,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
+import com.plugin.project.language.psi.CMinusVarDeclaration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -41,7 +42,8 @@ public class CMinusAnnotator implements Annotator {
 
         String key = value.substring(CMINUS_PREFIX_STR.length() + CMINUS_SEPARATOR_STR.length());
         List<CMinusFunDeclaration> functionReferences = CMinusUtil.findFunctionReferences(element.getProject(), key);
-        if(functionReferences.isEmpty()){
+        List<CMinusVarDeclaration> variableReferences = CMinusUtil.findVariableReferences(element.getProject(), key);
+        if(functionReferences.isEmpty() && variableReferences.isEmpty()){
             holder.newAnnotation(HighlightSeverity.ERROR, "Unresolved reference")
                     .range(keyRange)
                     .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)

@@ -8,12 +8,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.plugin.project.language.psi.CMinusTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.plugin.project.language.psi.*;
 
-public class CMinusFunDeclarationImpl extends ASTWrapperPsiElement implements CMinusFunDeclaration {
+public class CMinusFunDeclarationImpl extends CMinusNamedElementImpl implements CMinusFunDeclaration {
 
-  public CMinusFunDeclarationImpl(@NotNull ASTNode node) {
+  public CMinusFunDeclarationImpl(ASTNode node) {
     super(node);
   }
 
@@ -54,6 +53,21 @@ public class CMinusFunDeclarationImpl extends ASTWrapperPsiElement implements CM
   @Override
   public String getFunDeclId() {
     return CMinusPsiImplUtil.getFunDeclId(this);
+  }
+
+  @Override
+  public String getName() {
+    return CMinusPsiImplUtil.getName(this);
+  }
+
+  @Override
+  public PsiElement setName(String newName) {
+    return CMinusPsiImplUtil.setName(this, newName);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return CMinusPsiImplUtil.getNameIdentifier(this);
   }
 
 }

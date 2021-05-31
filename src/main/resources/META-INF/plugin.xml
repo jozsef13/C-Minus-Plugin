@@ -22,6 +22,9 @@
         <colorSettingsPage implementation="com.plugin.project.language.CMinusColorSettingsPage" />
         <annotator language="JAVA" implementationClass="com.plugin.project.language.CMinusAnnotator" />
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.CMinusLineMarkerProvider"/>
+        <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.CMinusCompletionContributor"/>
+        <psi.referenceContributor implementation="com.plugin.project.language.CMinusReferenceContributor" />
+        <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.CMinusRefactoringSupportProvider" />
     </extensions>
 
 </idea-plugin>

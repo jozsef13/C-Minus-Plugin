@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface CMinusFunDeclaration extends PsiElement {
+public interface CMinusFunDeclaration extends CMinusNamedElement {
 
   @NotNull
   CMinusCompoundStmt getCompoundStmt();
@@ -20,5 +20,11 @@ public interface CMinusFunDeclaration extends PsiElement {
   PsiElement getId();
 
   String getFunDeclId();
+
+  String getName();
+
+  PsiElement setName(String newName);
+
+  PsiElement getNameIdentifier();
 
 }

@@ -43,7 +43,6 @@ public class CMinusUtil {
                             result.add(reference);
                         }
                     }
-
                 }
             }
         }
@@ -68,6 +67,24 @@ public class CMinusUtil {
         return result;
     }
 
+    public static List<CMinusVarDeclaration> findVariableReferences(Project project, String id){
+        List<CMinusVarDeclaration> result = new ArrayList<>();
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (cMinusFile != null) {
+                Collection<CMinusVarDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusVarDeclaration.class);
+                for (CMinusVarDeclaration reference : references) {
+                    if (id.equals(reference.getVarDeclId())) {
+                        result.add(reference);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     public static List<CMinusFunDeclaration> findFunctionReferences(Project project) {
         List<CMinusFunDeclaration> result = new ArrayList<>();
         Collection<VirtualFile> virtualFiles =
@@ -75,9 +92,41 @@ public class CMinusUtil {
         for (VirtualFile virtualFile : virtualFiles) {
             CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (cMinusFile != null) {
-                CMinusFunDeclaration[] references = PsiTreeUtil.getChildrenOfType(cMinusFile, CMinusFunDeclaration.class);
+                Collection<CMinusFunDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusFunDeclaration.class);
                 if (references != null) {
-                    Collections.addAll(result, references);
+                    Collections.addAll(result, references.toArray(new CMinusFunDeclaration[references.size()]));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<CMinusVarDeclaration> findVariableReferences(Project project) {
+        List<CMinusVarDeclaration> result = new ArrayList<>();
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (cMinusFile != null) {
+                Collection<CMinusVarDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusVarDeclaration.class);
+                if (references != null) {
+                    Collections.addAll(result, references.toArray(new CMinusVarDeclaration[references.size()]));
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<PsiElement> findReferences(Project project) {
+        List<PsiElement> result = new ArrayList<>();
+        Collection<VirtualFile> virtualFiles =
+                FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
+        for (VirtualFile virtualFile : virtualFiles) {
+            CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (cMinusFile != null) {
+                Collection<PsiElement> references = PsiTreeUtil.findChildrenOfType(cMinusFile, PsiElement.class);
+                if(references != null){
+                    Collections.addAll(result, references.toArray(new PsiElement[references.size()]));
                 }
             }
         }
