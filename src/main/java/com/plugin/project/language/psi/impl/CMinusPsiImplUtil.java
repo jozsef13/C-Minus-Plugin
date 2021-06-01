@@ -1,8 +1,13 @@
 package com.plugin.project.language.psi.impl;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
+import com.plugin.project.language.CMinusIcons;
 import com.plugin.project.language.psi.*;
+import org.jetbrains.annotations.Nullable;
+
+import javax.swing.*;
 
 public class CMinusPsiImplUtil {
     private static String getIdentifier(PsiElement element){
@@ -75,6 +80,29 @@ public class CMinusPsiImplUtil {
             return getFunDeclId((CMinusFunDeclaration) element);
         } else {
             return getIdentifier(element);
+        }
+    }
+
+    public ItemPresentation getPresentation(final PsiElement element){
+        if(element instanceof CMinusFunDeclaration || element instanceof CMinusVarDeclaration){
+            return new ItemPresentation() {
+                @Override
+                public @Nullable String getPresentableText() {
+                    return getIdentifier(element);
+                }
+
+                @Override
+                public @Nullable String getLocationString() {
+                    return element.getContainingFile().getName();
+                }
+
+                @Override
+                public @Nullable Icon getIcon(boolean unused) {
+                    return CMinusIcons.FILE;
+                }
+            };
+        } else {
+            return null;
         }
     }
 }

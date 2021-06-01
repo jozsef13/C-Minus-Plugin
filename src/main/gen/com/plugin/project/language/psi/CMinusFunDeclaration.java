@@ -27,4 +27,8 @@ public interface CMinusFunDeclaration extends CMinusNamedElement {
 
   PsiElement getNameIdentifier();
 
+  //WARNING: getPresentation(...) is skipped
+  //matching getPresentation(CMinusFunDeclaration, ...)
+  //methods are not found in CMinusPsiImplUtil
+
 }

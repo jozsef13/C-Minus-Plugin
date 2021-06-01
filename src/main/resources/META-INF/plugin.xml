@@ -25,6 +25,8 @@
         <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.CMinusCompletionContributor"/>
         <psi.referenceContributor implementation="com.plugin.project.language.CMinusReferenceContributor" />
         <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.CMinusRefactoringSupportProvider" />
+        <lang.findUsagesProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusFindUsagesProvider" />
+        <gotoSymbolContributor implementation="com.plugin.project.language.CMinusChooseByNameContributor" />
     </extensions>
 
 </idea-plugin>

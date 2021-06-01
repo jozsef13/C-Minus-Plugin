@@ -75,11 +75,11 @@ declaration_list1 ::= declaration declaration_list1? | /*epsilon*/
 
 declaration ::= var_declaration | fun_declaration
 
-var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getVarDeclId getName setName getNameIdentifier]}
+var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getVarDeclId getName setName getNameIdentifier getPresentation]}
 
 type_specifier ::= INT | VOID | CHAR | FLOAT | DOUBLE | BOOL
 
-fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS compound_stmt {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getFunDeclId getName setName getNameIdentifier]}
+fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS compound_stmt {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getFunDeclId getName setName getNameIdentifier getPresentation]}
 
 params ::= param_list | VOID
 
