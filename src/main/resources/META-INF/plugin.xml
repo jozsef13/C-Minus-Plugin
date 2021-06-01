@@ -27,6 +27,12 @@
         <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.CMinusRefactoringSupportProvider" />
         <lang.findUsagesProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusFindUsagesProvider" />
         <gotoSymbolContributor implementation="com.plugin.project.language.CMinusChooseByNameContributor" />
+        <lang.psiStructureViewFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusStructureViewFactory" />
+        <lang.formatter language="CMinus" implementationClass="com.plugin.project.language.CMinusFormattingModelBuilder" />
+        <codeStyleSettingsProvider implementation="com.plugin.project.language.CMinusCodeStyleSettingsProvider" />
+        <langCodeStyleSettingsProvider
+                implementation="com.plugin.project.language.CMinusLanguageCodeStyleSettingsProvider" />
+        <lang.commenter language="CMinus" implementationClass="com.plugin.project.language.CMinusCommenter" />
     </extensions>
 
 </idea-plugin>

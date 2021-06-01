@@ -4,6 +4,7 @@ package com.plugin.project.language.psi;
 import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import com.intellij.navigation.ItemPresentation;
 
 public interface CMinusVarDeclaration extends CMinusNamedElement {
 
@@ -24,8 +25,6 @@ public interface CMinusVarDeclaration extends CMinusNamedElement {
 
   PsiElement getNameIdentifier();
 
-  //WARNING: getPresentation(...) is skipped
-  //matching getPresentation(CMinusVarDeclaration, ...)
-  //methods are not found in CMinusPsiImplUtil
+  ItemPresentation getPresentation();
 
 }

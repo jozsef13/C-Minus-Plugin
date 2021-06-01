@@ -47,9 +47,8 @@ public class CMinusAnnotator implements Annotator {
             holder.newAnnotation(HighlightSeverity.ERROR, "Unresolved reference")
                     .range(keyRange)
                     .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
+                    .withFix(new CMinusCreateFunctionQuickFix(key))
                     .create();
-//                    .withFix(new SimpleCreatePropertyQuickFix(key))
-//                    .create();
         } else {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                     .range(keyRange).textAttributes(CMinusSyntaxHighlighter.VALUE).create();

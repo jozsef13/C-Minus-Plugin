@@ -83,7 +83,7 @@ public class CMinusPsiImplUtil {
         }
     }
 
-    public ItemPresentation getPresentation(final PsiElement element){
+    public static ItemPresentation getPresentation(final PsiElement element){
         if(element instanceof CMinusFunDeclaration || element instanceof CMinusVarDeclaration){
             return new ItemPresentation() {
                 @Override

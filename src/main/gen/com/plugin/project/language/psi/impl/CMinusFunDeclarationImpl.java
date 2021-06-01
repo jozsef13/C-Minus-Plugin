@@ -9,6 +9,7 @@ import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.plugin.project.language.psi.CMinusTypes.*;
 import com.plugin.project.language.psi.*;
+import com.intellij.navigation.ItemPresentation;
 
 public class CMinusFunDeclarationImpl extends CMinusNamedElementImpl implements CMinusFunDeclaration {
 
@@ -68,6 +69,11 @@ public class CMinusFunDeclarationImpl extends CMinusNamedElementImpl implements 
   @Override
   public PsiElement getNameIdentifier() {
     return CMinusPsiImplUtil.getNameIdentifier(this);
+  }
+
+  @Override
+  public ItemPresentation getPresentation() {
+    return CMinusPsiImplUtil.getPresentation(this);
   }
 
 }
