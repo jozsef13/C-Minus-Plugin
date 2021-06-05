@@ -51,6 +51,7 @@ ID=\w+
 "char"                                                      { return CHAR; }
 "double"                                                    { return DOUBLE; }
 "float"                                                     { return FLOAT; }
+"const"                                                     { return CONST; }
 "cin"                                                       { return CIN; }
 "cout"                                                      { return COUT; }
 "<<"                                                        { return READ; }

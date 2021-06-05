@@ -47,8 +47,10 @@ public class CMinusPsiImplUtil {
                 elementReference = CMinusElementFactory.createVariable(element.getProject(), newName);
             } else if(element instanceof CMinusFunDeclaration){
                 elementReference = CMinusElementFactory.createFunction(element.getProject(), newName);
+            } else if(element instanceof CMinusConstDeclaration){
+                elementReference = CMinusElementFactory.createConstant(element.getProject(), newName);
             }
-            System.out.println("Here");
+
             if(elementReference != null){
                 ASTNode newKeyNode = elementReference.getNode().findChildByType(CMinusTypes.ID);
                 if(newKeyNode != null){
@@ -61,7 +63,7 @@ public class CMinusPsiImplUtil {
     }
 
     public static PsiElement getNameIdentifier(PsiElement element){
-        if(element instanceof CMinusVarDeclaration || element instanceof CMinusFunDeclaration){
+        if(element instanceof CMinusVarDeclaration || element instanceof CMinusFunDeclaration || element instanceof CMinusConstDeclaration){
             ASTNode node = element.getNode().findChildByType(CMinusTypes.ID);
             if(node != null){
                 return node.getPsi();
@@ -78,13 +80,19 @@ public class CMinusPsiImplUtil {
             return getVarDeclId((CMinusVarDeclaration) element);
         } else if(element instanceof CMinusFunDeclaration){
             return getFunDeclId((CMinusFunDeclaration) element);
+        } else if (element instanceof CMinusConstDeclaration){
+            return getConstDeclId((CMinusConstDeclaration)element);
         } else {
             return getIdentifier(element);
         }
     }
 
+    public static String getConstDeclId(CMinusConstDeclaration constantElement) {
+        return getIdentifier(constantElement);
+    }
+
     public static ItemPresentation getPresentation(final PsiElement element){
-        if(element instanceof CMinusFunDeclaration || element instanceof CMinusVarDeclaration){
+        if(element instanceof CMinusFunDeclaration || element instanceof CMinusVarDeclaration || element instanceof CMinusConstDeclaration){
             return new ItemPresentation() {
                 @Override
                 public @Nullable String getPresentableText() {
@@ -104,5 +112,20 @@ public class CMinusPsiImplUtil {
         } else {
             return null;
         }
+    }
+
+    public static String getConstantValue(final CMinusConstDeclaration element){
+        if(element.getNode().findChildByType(CMinusTypes.ASSIGN) != null){
+            ASTNode numNode = element.getNode().findChildByType(CMinusTypes.NUM);
+            ASTNode stringLiteralNode = element.getNode().findChildByType(CMinusTypes.STRING_LITERAL);
+
+            if(numNode != null) {
+                return numNode.getText();
+            } else if (stringLiteralNode != null){
+                return  stringLiteralNode.getText();
+            }
+        }
+
+        return null;
     }
 }

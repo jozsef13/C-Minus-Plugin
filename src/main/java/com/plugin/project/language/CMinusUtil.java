@@ -26,20 +26,16 @@ public class CMinusUtil {
                 Collection<PsiElement> references = PsiTreeUtil.findChildrenOfType(cMinusFile, PsiElement.class);
                 for (PsiElement reference : references) {
                     String referenceId = "";
-                    if(reference instanceof CMinusCall){
-                        referenceId = ((CMinusCall)reference).getCallId();
-                    } else if(reference instanceof CMinusFunDeclaration){
+                    if(reference instanceof CMinusFunDeclaration){
                         referenceId = ((CMinusFunDeclaration)reference).getFunDeclId();
-                    } else if(reference instanceof CMinusParam){
-                        referenceId = ((CMinusParam)reference).getParamId();
-                    } else if(reference instanceof CMinusVar){
-                        referenceId = ((CMinusVar)reference).getVarId();
                     } else if(reference instanceof CMinusVarDeclaration){
                         referenceId = ((CMinusVarDeclaration)reference).getVarDeclId();
+                    } else if(reference instanceof CMinusConstDeclaration){
+                        referenceId = ((CMinusConstDeclaration)reference).getConstDeclId();
                     }
 
                     if(!referenceId.isEmpty()){
-                        if (id.equals(referenceId)) {
+                        if (id.split("\\(\\)")[0].equals(referenceId)) {
                             result.add(reference);
                         }
                     }
@@ -58,7 +54,7 @@ public class CMinusUtil {
             if (cMinusFile != null) {
                 Collection<CMinusFunDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusFunDeclaration.class);
                 for (CMinusFunDeclaration reference : references) {
-                    if (id.equals(reference.getFunDeclId())) {
+                    if (id.split("\\(\\)")[0].equals(reference.getFunDeclId())) {
                         result.add(reference);
                     }
                 }
@@ -85,32 +81,18 @@ public class CMinusUtil {
         return result;
     }
 
-    public static List<CMinusFunDeclaration> findFunctionReferences(Project project) {
-        List<CMinusFunDeclaration> result = new ArrayList<>();
+    public static List<CMinusConstDeclaration> findConstantReferences(Project project, String id){
+        List<CMinusConstDeclaration> result = new ArrayList<>();
         Collection<VirtualFile> virtualFiles =
                 FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
         for (VirtualFile virtualFile : virtualFiles) {
             CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (cMinusFile != null) {
-                Collection<CMinusFunDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusFunDeclaration.class);
-                if (references != null) {
-                    Collections.addAll(result, references.toArray(new CMinusFunDeclaration[references.size()]));
-                }
-            }
-        }
-        return result;
-    }
-
-    public static List<CMinusVarDeclaration> findVariableReferences(Project project) {
-        List<CMinusVarDeclaration> result = new ArrayList<>();
-        Collection<VirtualFile> virtualFiles =
-                FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
-        for (VirtualFile virtualFile : virtualFiles) {
-            CMinusFile cMinusFile = (CMinusFile) PsiManager.getInstance(project).findFile(virtualFile);
-            if (cMinusFile != null) {
-                Collection<CMinusVarDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusVarDeclaration.class);
-                if (references != null) {
-                    Collections.addAll(result, references.toArray(new CMinusVarDeclaration[references.size()]));
+                Collection<CMinusConstDeclaration> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusConstDeclaration.class);
+                for (CMinusConstDeclaration reference : references) {
+                    if (id.equals(reference.getConstDeclId())) {
+                        result.add(reference);
+                    }
                 }
             }
         }

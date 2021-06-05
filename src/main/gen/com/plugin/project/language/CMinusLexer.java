@@ -168,12 +168,12 @@ class CMinusLexer implements FlexLexer {
     "\1\15\1\16\1\17\1\20\1\21\1\22\1\23\2\24"+
     "\1\2\1\25\1\0\1\26\1\0\1\5\1\27\14\5"+
     "\1\30\1\31\1\32\1\33\1\34\1\35\1\36\1\37"+
-    "\1\0\1\5\1\40\10\5\1\41\2\5\1\25\1\42"+
-    "\2\5\1\43\1\5\1\44\2\5\1\45\1\46\1\47"+
-    "\1\50\1\51\2\5\1\52\1\53\1\54";
+    "\1\0\1\5\1\40\10\5\1\41\3\5\1\25\1\42"+
+    "\2\5\1\43\1\5\1\44\2\5\1\45\1\5\1\46"+
+    "\1\47\1\50\1\51\2\5\1\52\1\53\1\54\1\55";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[96];
+    int [] result = new int[99];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -207,12 +207,13 @@ class CMinusLexer implements FlexLexer {
     "\0\u0594\0\u05be\0\u05e8\0\u0612\0\u063c\0\u0666\0\u0690\0\250"+
     "\0\250\0\250\0\250\0\250\0\250\0\250\0\250\0\u06ba"+
     "\0\u06e4\0\374\0\u070e\0\u0738\0\u0762\0\u078c\0\u07b6\0\u07e0"+
-    "\0\u080a\0\u0834\0\374\0\u085e\0\u0888\0\250\0\374\0\u08b2"+
-    "\0\u08dc\0\374\0\u0906\0\374\0\u0930\0\u095a\0\374\0\374"+
-    "\0\374\0\374\0\374\0\u0984\0\u09ae\0\374\0\374\0\374";
+    "\0\u080a\0\u0834\0\374\0\u085e\0\u0888\0\u08b2\0\250\0\374"+
+    "\0\u08dc\0\u0906\0\374\0\u0930\0\374\0\u095a\0\u0984\0\374"+
+    "\0\u09ae\0\374\0\374\0\374\0\374\0\u09d8\0\u0a02\0\374"+
+    "\0\374\0\374\0\374";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[96];
+    int [] result = new int[99];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -267,25 +268,27 @@ class CMinusLexer implements FlexLexer {
     "\1\107\15\7\25\0\2\7\2\0\10\7\1\110\10\7"+
     "\25\0\2\7\2\0\3\7\1\111\15\7\25\0\2\7"+
     "\2\0\12\7\1\112\6\7\25\0\2\7\2\0\5\7"+
-    "\1\113\13\7\25\0\2\7\2\0\10\7\1\114\10\7"+
-    "\25\0\2\7\2\0\16\7\1\115\2\7\20\0\3\47"+
-    "\1\116\1\100\45\47\5\0\2\7\2\0\1\117\20\7"+
-    "\25\0\2\7\2\0\16\7\1\120\2\7\25\0\2\7"+
-    "\2\0\2\7\1\121\16\7\25\0\2\7\2\0\1\122"+
-    "\20\7\25\0\2\7\2\0\10\7\1\123\10\7\25\0"+
-    "\2\7\2\0\13\7\1\124\5\7\25\0\2\7\2\0"+
-    "\17\7\1\125\1\7\25\0\2\7\2\0\1\7\1\126"+
-    "\17\7\25\0\2\7\2\0\1\7\1\127\17\7\25\0"+
-    "\2\7\2\0\6\7\1\130\12\7\25\0\2\7\2\0"+
-    "\7\7\1\131\11\7\25\0\2\7\2\0\6\7\1\132"+
-    "\12\7\25\0\2\7\2\0\1\133\20\7\25\0\2\7"+
-    "\2\0\7\7\1\134\11\7\25\0\2\7\2\0\1\7"+
-    "\1\135\17\7\25\0\2\7\2\0\1\136\20\7\25\0"+
-    "\2\7\2\0\5\7\1\137\13\7\25\0\2\7\2\0"+
-    "\1\140\20\7\20\0";
+    "\1\113\13\7\25\0\2\7\2\0\5\7\1\114\2\7"+
+    "\1\115\10\7\25\0\2\7\2\0\16\7\1\116\2\7"+
+    "\20\0\3\47\1\117\1\100\45\47\5\0\2\7\2\0"+
+    "\1\120\20\7\25\0\2\7\2\0\16\7\1\121\2\7"+
+    "\25\0\2\7\2\0\2\7\1\122\16\7\25\0\2\7"+
+    "\2\0\1\123\20\7\25\0\2\7\2\0\10\7\1\124"+
+    "\10\7\25\0\2\7\2\0\13\7\1\125\5\7\25\0"+
+    "\2\7\2\0\17\7\1\126\1\7\25\0\2\7\2\0"+
+    "\1\7\1\127\17\7\25\0\2\7\2\0\1\7\1\130"+
+    "\17\7\25\0\2\7\2\0\2\7\1\131\16\7\25\0"+
+    "\2\7\2\0\6\7\1\132\12\7\25\0\2\7\2\0"+
+    "\7\7\1\133\11\7\25\0\2\7\2\0\6\7\1\134"+
+    "\12\7\25\0\2\7\2\0\1\135\20\7\25\0\2\7"+
+    "\2\0\7\7\1\136\11\7\25\0\2\7\2\0\1\7"+
+    "\1\137\17\7\25\0\2\7\2\0\1\140\20\7\25\0"+
+    "\2\7\2\0\6\7\1\141\12\7\25\0\2\7\2\0"+
+    "\5\7\1\142\13\7\25\0\2\7\2\0\1\143\20\7"+
+    "\20\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[2520];
+    int [] result = new int[2604];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -325,10 +328,10 @@ class CMinusLexer implements FlexLexer {
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\2\1\1\11\2\1\1\0\14\1\2\0\2\1"+
     "\12\11\2\1\1\11\1\1\1\0\1\11\1\0\16\1"+
-    "\10\11\1\0\15\1\1\11\22\1";
+    "\10\11\1\0\16\1\1\11\24\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[96];
+    int [] result = new int[99];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -645,222 +648,227 @@ class CMinusLexer implements FlexLexer {
             { yybegin(YYINITIAL); return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 45: break;
+          case 46: break;
           case 2: 
             { return DIVIDE;
             } 
             // fall through
-          case 46: break;
+          case 47: break;
           case 3: 
             { return MULTIPLY;
             } 
             // fall through
-          case 47: break;
+          case 48: break;
           case 4: 
             { return NUM;
             } 
             // fall through
-          case 48: break;
+          case 49: break;
           case 5: 
             { return ID;
             } 
             // fall through
-          case 49: break;
+          case 50: break;
           case 6: 
             { return SMALLER;
             } 
             // fall through
-          case 50: break;
+          case 51: break;
           case 7: 
             { return GREATER;
             } 
             // fall through
-          case 51: break;
+          case 52: break;
           case 8: 
             { return ASSIGN;
             } 
             // fall through
-          case 52: break;
+          case 53: break;
           case 9: 
             { return NOT;
             } 
             // fall through
-          case 53: break;
+          case 54: break;
           case 10: 
             { return ADD;
             } 
             // fall through
-          case 54: break;
+          case 55: break;
           case 11: 
             { return SUBSTRACT;
             } 
             // fall through
-          case 55: break;
+          case 56: break;
           case 12: 
             { return END_OF_INSTRUCTION;
             } 
             // fall through
-          case 56: break;
+          case 57: break;
           case 13: 
             { return COMMA;
             } 
             // fall through
-          case 57: break;
+          case 58: break;
           case 14: 
             { return LEFT_PARANTHESIS;
             } 
             // fall through
-          case 58: break;
+          case 59: break;
           case 15: 
             { return RIGHT_PARANTHESIS;
             } 
             // fall through
-          case 59: break;
+          case 60: break;
           case 16: 
             { return LEFT_BRACKET;
             } 
             // fall through
-          case 60: break;
+          case 61: break;
           case 17: 
             { return RIGHT_BRACKET;
             } 
             // fall through
-          case 61: break;
+          case 62: break;
           case 18: 
             { return LEFT_BRACE;
             } 
             // fall through
-          case 62: break;
+          case 63: break;
           case 19: 
             { return RIGHT_BRACE;
             } 
             // fall through
-          case 63: break;
+          case 64: break;
           case 20: 
             { yybegin(WAITING_VALUE); return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 64: break;
+          case 65: break;
           case 21: 
             { yybegin(YYINITIAL); return CMinusTypes.COMMENT;
             } 
             // fall through
-          case 65: break;
+          case 66: break;
           case 22: 
             { return STRING_LITERAL;
             } 
             // fall through
-          case 66: break;
+          case 67: break;
           case 23: 
             { return IF;
             } 
             // fall through
-          case 67: break;
+          case 68: break;
           case 24: 
             { return READ;
             } 
             // fall through
-          case 68: break;
+          case 69: break;
           case 25: 
             { return SMALLER_OR_EQUAL;
             } 
             // fall through
-          case 69: break;
+          case 70: break;
           case 26: 
             { return WRITE;
             } 
             // fall through
-          case 70: break;
+          case 71: break;
           case 27: 
             { return GREATER_OR_EQUAL;
             } 
             // fall through
-          case 71: break;
+          case 72: break;
           case 28: 
             { return OR;
             } 
             // fall through
-          case 72: break;
+          case 73: break;
           case 29: 
             { return AND;
             } 
             // fall through
-          case 73: break;
+          case 74: break;
           case 30: 
             { return EQUAL;
             } 
             // fall through
-          case 74: break;
+          case 75: break;
           case 31: 
             { return NOT_EQUAL;
             } 
             // fall through
-          case 75: break;
+          case 76: break;
           case 32: 
             { return INT;
             } 
             // fall through
-          case 76: break;
+          case 77: break;
           case 33: 
             { return CIN;
             } 
             // fall through
-          case 77: break;
+          case 78: break;
           case 34: 
             { return ELSE;
             } 
             // fall through
-          case 78: break;
+          case 79: break;
           case 35: 
             { return TRUE;
             } 
             // fall through
-          case 79: break;
+          case 80: break;
           case 36: 
             { return VOID;
             } 
             // fall through
-          case 80: break;
+          case 81: break;
           case 37: 
             { return BOOL;
             } 
             // fall through
-          case 81: break;
+          case 82: break;
           case 38: 
             { return COUT;
             } 
             // fall through
-          case 82: break;
+          case 83: break;
           case 39: 
             { return CHAR;
             } 
             // fall through
-          case 83: break;
+          case 84: break;
           case 40: 
             { return FLOAT;
             } 
             // fall through
-          case 84: break;
+          case 85: break;
           case 41: 
             { return FALSE;
             } 
             // fall through
-          case 85: break;
+          case 86: break;
           case 42: 
             { return WHILE;
             } 
             // fall through
-          case 86: break;
-          case 43: 
-            { return RETURN;
-            } 
-            // fall through
           case 87: break;
-          case 44: 
-            { return DOUBLE;
+          case 43: 
+            { return CONST;
             } 
             // fall through
           case 88: break;
+          case 44: 
+            { return RETURN;
+            } 
+            // fall through
+          case 89: break;
+          case 45: 
+            { return DOUBLE;
+            } 
+            // fall through
+          case 90: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

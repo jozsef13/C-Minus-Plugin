@@ -6,6 +6,7 @@ import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.tree.TokenSet;
+import com.plugin.project.language.psi.CMinusConstDeclaration;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
 import com.plugin.project.language.psi.CMinusTypes;
 import com.plugin.project.language.psi.CMinusVarDeclaration;
@@ -35,6 +36,8 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
             return "cminus function";
         } else if(element instanceof CMinusVarDeclaration){
             return "cminus variable";
+        } else if (element instanceof CMinusConstDeclaration){
+            return "cminus constant";
         } else {
             return "";
         }
@@ -46,6 +49,8 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
             return ((CMinusFunDeclaration) element).getFunDeclId();
         } else if(element instanceof CMinusVarDeclaration){
             return ((CMinusVarDeclaration) element).getVarDeclId();
+        } else if (element instanceof CMinusConstDeclaration){
+            return ((CMinusConstDeclaration) element).getConstDeclId();
         } else {
             return "";
         }
@@ -57,6 +62,8 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
             return ((CMinusFunDeclaration) element).getFunDeclId();
         } else if(element instanceof CMinusVarDeclaration){
             return ((CMinusVarDeclaration) element).getVarDeclId();
+        } else if (element instanceof CMinusConstDeclaration){
+            return ((CMinusConstDeclaration) element).getConstDeclId();
         } else {
             return "";
         }

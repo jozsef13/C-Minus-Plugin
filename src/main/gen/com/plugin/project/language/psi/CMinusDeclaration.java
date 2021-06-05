@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface CMinusDeclaration extends PsiElement {
 
   @Nullable
+  CMinusConstDeclaration getConstDeclaration();
+
+  @Nullable
   CMinusFunDeclaration getFunDeclaration();
 
   @Nullable

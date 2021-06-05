@@ -9,9 +9,11 @@ import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.plugin.project.language.psi.CMinusConstDeclaration;
 import com.plugin.project.language.psi.CMinusFile;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
 import com.plugin.project.language.psi.CMinusVarDeclaration;
+import com.plugin.project.language.psi.impl.CMinusConstDeclarationImpl;
 import com.plugin.project.language.psi.impl.CMinusFunDeclarationImpl;
 import com.plugin.project.language.psi.impl.CMinusVarDeclarationImpl;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +52,8 @@ public class CMinusStructureViewElement implements StructureViewTreeElement, Sor
         if(myElement instanceof CMinusFile){
             List<CMinusFunDeclaration> functionReferences = new ArrayList<>(PsiTreeUtil.findChildrenOfType(myElement, CMinusFunDeclaration.class));
             List<CMinusVarDeclaration> variableReferences = new ArrayList<>(PsiTreeUtil.findChildrenOfType(myElement, CMinusVarDeclaration.class));
-            List<TreeElement> treeElements = new ArrayList<>(functionReferences.size() + variableReferences.size());
+            List<CMinusConstDeclaration> constantReferences = new ArrayList<>(PsiTreeUtil.findChildrenOfType(myElement, CMinusConstDeclaration.class));
+            List<TreeElement> treeElements = new ArrayList<>(functionReferences.size() + variableReferences.size() + constantReferences.size());
 
             for (CMinusFunDeclaration functionReference : functionReferences){
                 treeElements.add(new CMinusStructureViewElement((CMinusFunDeclarationImpl) functionReference));
@@ -58,6 +61,10 @@ public class CMinusStructureViewElement implements StructureViewTreeElement, Sor
 
             for (CMinusVarDeclaration variableReference: variableReferences){
                 treeElements.add(new CMinusStructureViewElement((CMinusVarDeclarationImpl) variableReference));
+            }
+
+            for (CMinusConstDeclaration constantReference : constantReferences){
+                treeElements.add(new CMinusStructureViewElement((CMinusConstDeclarationImpl) constantReference));
             }
 
             return treeElements.toArray(new TreeElement[treeElements.size()]);

@@ -8,7 +8,7 @@ import com.plugin.project.language.CMinusFileType;
 
 public class CMinusElementFactory {
     public static CMinusFunDeclaration createFunction(Project project, String name) {
-        final CMinusFile file = createFile(project, "int " + name + "(){}");
+        final CMinusFile file = createFile(project, "int " + name.split("\\(\\)")[0] + "(){}");
         return PsiTreeUtil.findChildOfType(file, CMinusFunDeclaration.class);
     }
 
@@ -23,17 +23,22 @@ public class CMinusElementFactory {
     }
 
     public static CMinusFunDeclaration createFunction(Project project, String name, String typeSpecifier){
-        final CMinusFile file = createFile(project, typeSpecifier + name + "(){}");
+        final CMinusFile file = createFile(project, typeSpecifier + name.split("\\(\\)")[0] + "(){}");
         return PsiTreeUtil.findChildOfType(file, CMinusFunDeclaration.class);
     }
 
     public static CMinusVarDeclaration createVariable(Project project, String name, String typeSpecifier){
-        final CMinusFile file = createFile(project, typeSpecifier + name + ";");
+        final CMinusFile file = createFile(project, typeSpecifier + name + ";\n");
         return PsiTreeUtil.findChildOfType(file, CMinusVarDeclaration.class);
     }
 
     public static PsiElement createCRLF(Project project){
         final CMinusFile file = createFile(project, "\n");
         return file.getFirstChild();
+    }
+
+    public static CMinusConstDeclaration createConstant(Project project, String name) {
+        final CMinusFile file = createFile(project, "const " + name + " = 0;\n");
+        return PsiTreeUtil.findChildOfType(file, CMinusConstDeclaration.class);
     }
 }

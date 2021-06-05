@@ -29,6 +29,12 @@ public class CMinusDeclarationImpl extends ASTWrapperPsiElement implements CMinu
 
   @Override
   @Nullable
+  public CMinusConstDeclaration getConstDeclaration() {
+    return findChildByClass(CMinusConstDeclaration.class);
+  }
+
+  @Override
+  @Nullable
   public CMinusFunDeclaration getFunDeclaration() {
     return findChildByClass(CMinusFunDeclaration.class);
   }

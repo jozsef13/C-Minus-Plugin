@@ -4,6 +4,7 @@ import com.intellij.navigation.ChooseByNameContributor;
 import com.intellij.navigation.NavigationItem;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
+import com.plugin.project.language.psi.CMinusConstDeclaration;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
 import com.plugin.project.language.psi.CMinusVarDeclaration;
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +26,10 @@ public class CMinusChooseByNameContributor implements ChooseByNameContributor {
             } else if(reference instanceof CMinusVarDeclaration){
                 if(((CMinusVarDeclaration) reference).getVarDeclId() != null && ((CMinusVarDeclaration) reference).getVarDeclId().length() > 0){
                     tempName = ((CMinusVarDeclaration) reference).getVarDeclId();
+                }
+            } else if (reference instanceof CMinusConstDeclaration){
+                if(((CMinusConstDeclaration) reference).getConstDeclId() != null && ((CMinusConstDeclaration) reference).getConstDeclId().length() > 0){
+                    tempName = ((CMinusConstDeclaration) reference).getConstDeclId();
                 }
             }
 

@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
 import com.intellij.psi.impl.source.tree.java.PsiJavaTokenImpl;
+import com.plugin.project.language.psi.CMinusConstDeclaration;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
 import com.plugin.project.language.psi.CMinusVarDeclaration;
 import org.jetbrains.annotations.NotNull;
@@ -49,6 +50,15 @@ public class CMinusLineMarkerProvider extends RelatedItemLineMarkerProvider {
                     NavigationGutterIconBuilder.create(CMinusIcons.FILE)
                             .setTargets(variableReferences)
                             .setTooltipText("Navigate to CMinus language variable reference");
+            result.add(builder.createLineMarkerInfo(element));
+        }
+
+        final List<CMinusConstDeclaration> constReferences = CMinusUtil.findConstantReferences(project, possibleReferences);
+        if(constReferences.size() > 0){
+            NavigationGutterIconBuilder<PsiElement> builder =
+                    NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                            .setTargets(constReferences)
+                            .setTooltipText("Navigate to CMinus language constant reference");
             result.add(builder.createLineMarkerInfo(element));
         }
     }

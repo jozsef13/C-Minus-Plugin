@@ -33,6 +33,7 @@
         <langCodeStyleSettingsProvider
                 implementation="com.plugin.project.language.CMinusLanguageCodeStyleSettingsProvider" />
         <lang.commenter language="CMinus" implementationClass="com.plugin.project.language.CMinusCommenter" />
+        <lang.foldingBuilder language="JAVA" implementationClass="com.plugin.project.language.CMinusFoldingBuilder" />
     </extensions>
 
 </idea-plugin>

@@ -39,6 +39,10 @@ public class CMinusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitConstDeclaration(@NotNull CMinusConstDeclaration o) {
+    visitNamedElement(o);
+  }
+
   public void visitDeclaration(@NotNull CMinusDeclaration o) {
     visitPsiElement(o);
   }

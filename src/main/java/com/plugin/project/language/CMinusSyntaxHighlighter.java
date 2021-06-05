@@ -80,7 +80,7 @@ public class CMinusSyntaxHighlighter extends SyntaxHighlighterBase {
                 tokenType.equals(CMinusTypes.CHAR) || tokenType.equals(CMinusTypes.BOOL) ||
                 tokenType.equals(CMinusTypes.RETURN) || tokenType.equals(CMinusTypes.IF) ||
                 tokenType.equals(CMinusTypes.WHILE) || tokenType.equals(CMinusTypes.CIN) || tokenType.equals(CMinusTypes.COUT) ||
-                tokenType.equals(CMinusTypes.ELSE)) {
+                tokenType.equals(CMinusTypes.ELSE) || tokenType.equals(CMinusTypes.CONST)) {
             return KEY_KEYS;
         } else {
             return EMPTY_KEYS;

@@ -223,13 +223,27 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // var_declaration | fun_declaration
+  // CONST ID ASSIGN NUM END_OF_INSTRUCTION | CONST ID ASSIGN STRING_LITERAL END_OF_INSTRUCTION
+  public static boolean const_declaration(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "const_declaration")) return false;
+    if (!nextTokenIs(b, CONST)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = parseTokens(b, 0, CONST, ID, ASSIGN, NUM, END_OF_INSTRUCTION);
+    if (!r) r = parseTokens(b, 0, CONST, ID, ASSIGN, STRING_LITERAL, END_OF_INSTRUCTION);
+    exit_section_(b, m, CONST_DECLARATION, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // var_declaration | fun_declaration | const_declaration
   public static boolean declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "declaration")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, DECLARATION, "<declaration>");
     r = var_declaration(b, l + 1);
     if (!r) r = fun_declaration(b, l + 1);
+    if (!r) r = const_declaration(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

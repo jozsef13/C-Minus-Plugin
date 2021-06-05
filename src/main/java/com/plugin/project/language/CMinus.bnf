@@ -22,6 +22,7 @@ tokens =
     CHAR = 'char'
     DOUBLE = 'double'
     FLOAT = 'float'
+    CONST = 'const'
     CIN = 'cin'
     COUT = 'cout'
     READ = '<<'
@@ -73,7 +74,9 @@ declaration_list ::= declaration declaration_list1?
 
 declaration_list1 ::= declaration declaration_list1? | /*epsilon*/
 
-declaration ::= var_declaration | fun_declaration
+declaration ::= var_declaration | fun_declaration | const_declaration
+
+const_declaration ::= CONST ID ASSIGN NUM END_OF_INSTRUCTION | CONST ID ASSIGN STRING_LITERAL END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getConstDeclId getName setName getNameIdentifier getPresentation getConstantValue]}
 
 var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getVarDeclId getName setName getNameIdentifier getPresentation]}
 

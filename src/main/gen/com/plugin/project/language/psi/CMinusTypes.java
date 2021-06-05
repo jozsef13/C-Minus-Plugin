@@ -16,6 +16,7 @@ public interface CMinusTypes {
   IElementType ARG_LIST_1 = new CMinusElementType("ARG_LIST_1");
   IElementType CALL = new CMinusElementType("CALL");
   IElementType COMPOUND_STMT = new CMinusElementType("COMPOUND_STMT");
+  IElementType CONST_DECLARATION = new CMinusElementType("CONST_DECLARATION");
   IElementType DECLARATION = new CMinusElementType("DECLARATION");
   IElementType DECLARATION_LIST = new CMinusElementType("DECLARATION_LIST");
   IElementType DECLARATION_LIST_1 = new CMinusElementType("DECLARATION_LIST_1");
@@ -57,6 +58,7 @@ public interface CMinusTypes {
   IElementType CIN = new CMinusTokenType("cin");
   IElementType COMMA = new CMinusTokenType(",");
   IElementType COMMENT = new CMinusTokenType("COMMENT");
+  IElementType CONST = new CMinusTokenType("const");
   IElementType COUT = new CMinusTokenType("cout");
   IElementType CRLF = new CMinusTokenType("CRLF");
   IElementType DECLARATION_LIST1_1_0 = new CMinusTokenType("declaration_list1_1_0");
@@ -124,6 +126,9 @@ public interface CMinusTypes {
       }
       else if (type == COMPOUND_STMT) {
         return new CMinusCompoundStmtImpl(node);
+      }
+      else if (type == CONST_DECLARATION) {
+        return new CMinusConstDeclarationImpl(node);
       }
       else if (type == DECLARATION) {
         return new CMinusDeclarationImpl(node);

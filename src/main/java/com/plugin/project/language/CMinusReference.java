@@ -5,6 +5,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
+import com.plugin.project.language.psi.CMinusConstDeclaration;
 import com.plugin.project.language.psi.CMinusFunDeclaration;
 import com.plugin.project.language.psi.CMinusVarDeclaration;
 import org.jetbrains.annotations.NotNull;
@@ -53,6 +54,10 @@ public class CMinusReference extends PsiReferenceBase<PsiElement> implements Psi
             } else if(reference instanceof CMinusVarDeclaration){
                 if(((CMinusVarDeclaration) reference).getVarDeclId() != null && ((CMinusVarDeclaration) reference).getVarDeclId().length() > 0){
                     variants.add(LookupElementBuilder.create(((CMinusVarDeclaration) reference).getVarDeclId()).withIcon(CMinusIcons.FILE).withTypeText(reference.getContainingFile().getName() + " - variable"));
+                }
+            } else if(reference instanceof CMinusConstDeclaration){
+                if(((CMinusConstDeclaration) reference).getConstDeclId() != null && ((CMinusConstDeclaration) reference).getConstDeclId().length() > 0){
+                    variants.add(LookupElementBuilder.create(((CMinusConstDeclaration) reference).getConstDeclId()).withIcon(CMinusIcons.FILE).withTypeText(reference.getContainingFile().getName() + " - constant"));
                 }
             }
         }
