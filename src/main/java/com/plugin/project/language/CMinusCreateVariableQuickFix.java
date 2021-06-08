@@ -25,13 +25,16 @@ import com.plugin.project.language.psi.CMinusFile;
 import com.plugin.project.language.psi.CMinusVarDeclaration;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class CMinusCreateVariableQuickFix extends BaseIntentionAction {
     private final String id;
+    private boolean isLocal;
 
-    public CMinusCreateVariableQuickFix(String key) {
+    public CMinusCreateVariableQuickFix(String key, boolean isLocal) {
         this.id = key;
+        this.isLocal = isLocal;
     }
 
     @Override
@@ -52,7 +55,13 @@ public class CMinusCreateVariableQuickFix extends BaseIntentionAction {
     @Override
     public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
         ApplicationManager.getApplication().invokeLater(() -> {
-            Collection<VirtualFile> virtualFiles = FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
+            Collection<VirtualFile> virtualFiles = new ArrayList<>();
+            if(isLocal){
+                virtualFiles.add(file.getVirtualFile());
+            } else {
+                virtualFiles = FileTypeIndex.getFiles(CMinusFileType.INSTANCE, GlobalSearchScope.allScope(project));
+            }
+
             if(virtualFiles.size() == 1){
                 createVariable(project, virtualFiles.iterator().next());
             } else {

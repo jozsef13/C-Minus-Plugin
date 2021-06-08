@@ -21,7 +21,9 @@
         <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusSyntaxHighlighterFactory" />
         <colorSettingsPage implementation="com.plugin.project.language.CMinusColorSettingsPage" />
         <annotator language="JAVA" implementationClass="com.plugin.project.language.CMinusAnnotator" />
-        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.CMinusLineMarkerProvider"/>
+        <annotator language="CMinus" implementationClass="com.plugin.project.language.CMinusAnnotator" />
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.CMinusJavaLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusLocalLineMarkerProvider"/>
         <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.CMinusCompletionContributor"/>
         <psi.referenceContributor implementation="com.plugin.project.language.CMinusReferenceContributor" />
         <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.CMinusRefactoringSupportProvider" />

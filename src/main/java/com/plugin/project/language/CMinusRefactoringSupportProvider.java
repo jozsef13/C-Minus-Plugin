@@ -2,9 +2,7 @@ package com.plugin.project.language;
 
 import com.intellij.lang.refactoring.RefactoringSupportProvider;
 import com.intellij.psi.PsiElement;
-import com.plugin.project.language.psi.CMinusConstDeclaration;
-import com.plugin.project.language.psi.CMinusFunDeclaration;
-import com.plugin.project.language.psi.CMinusVarDeclaration;
+import com.plugin.project.language.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

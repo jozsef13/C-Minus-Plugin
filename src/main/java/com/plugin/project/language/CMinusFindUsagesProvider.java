@@ -6,10 +6,7 @@ import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.tree.TokenSet;
-import com.plugin.project.language.psi.CMinusConstDeclaration;
-import com.plugin.project.language.psi.CMinusFunDeclaration;
-import com.plugin.project.language.psi.CMinusTypes;
-import com.plugin.project.language.psi.CMinusVarDeclaration;
+import com.plugin.project.language.psi.*;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,12 +29,18 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
 
     @Override
     public @Nls @NotNull String getType(@NotNull PsiElement element) {
-        if(element instanceof CMinusFunDeclaration){
+        if (element instanceof CMinusFunDeclaration) {
             return "cminus function";
-        } else if(element instanceof CMinusVarDeclaration){
+        } else if (element instanceof CMinusVarDeclaration) {
             return "cminus variable";
-        } else if (element instanceof CMinusConstDeclaration){
+        } else if (element instanceof CMinusConstDeclaration) {
             return "cminus constant";
+        } else if (element instanceof CMinusVar) {
+            return "cminus variable";
+        } else if (element instanceof CMinusCall) {
+            return "cminus function call";
+        } else if (element instanceof CMinusParam) {
+            return "cminus parameter";
         } else {
             return "";
         }
@@ -45,25 +48,29 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
 
     @Override
     public @Nls @NotNull String getDescriptiveName(@NotNull PsiElement element) {
-        if(element instanceof CMinusFunDeclaration){
-            return ((CMinusFunDeclaration) element).getFunDeclId();
-        } else if(element instanceof CMinusVarDeclaration){
-            return ((CMinusVarDeclaration) element).getVarDeclId();
-        } else if (element instanceof CMinusConstDeclaration){
-            return ((CMinusConstDeclaration) element).getConstDeclId();
-        } else {
-            return "";
-        }
+        return getName(element);
     }
 
     @Override
     public @Nls @NotNull String getNodeText(@NotNull PsiElement element, boolean useFullName) {
-        if(element instanceof CMinusFunDeclaration){
+        return getName(element);
+    }
+
+    @Nls
+    @NotNull
+    private String getName(@NotNull PsiElement element) {
+        if (element instanceof CMinusFunDeclaration) {
             return ((CMinusFunDeclaration) element).getFunDeclId();
-        } else if(element instanceof CMinusVarDeclaration){
+        } else if (element instanceof CMinusVarDeclaration) {
             return ((CMinusVarDeclaration) element).getVarDeclId();
-        } else if (element instanceof CMinusConstDeclaration){
+        } else if (element instanceof CMinusConstDeclaration) {
             return ((CMinusConstDeclaration) element).getConstDeclId();
+        } else if (element instanceof CMinusVar) {
+            return ((CMinusVar) element).getVarId();
+        } else if (element instanceof CMinusCall) {
+            return ((CMinusCall) element).getCallId();
+        } else if (element instanceof CMinusParam) {
+            return ((CMinusParam) element).getParamId();
         } else {
             return "";
         }

@@ -90,7 +90,7 @@ param_list ::= param param_list1?
 
 param_list1 ::= COMMA param param_list1? | /*epsilon*/
 
-param ::= type_specifier ID | type_specifier ID LEFT_BRACKET RIGHT_BRACKET {methods=[getParamId]}
+param ::= type_specifier ID | type_specifier ID LEFT_BRACKET RIGHT_BRACKET {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getParamId getName setName getNameIdentifier getPresentation]}
 
 compound_stmt ::= LEFT_BRACE local_declarations? statement_list? RIGHT_BRACE
 
@@ -116,7 +116,7 @@ read_statement ::= CIN READ var END_OF_INSTRUCTION
 
 write_statement ::= COUT WRITE expression END_OF_INSTRUCTION
 
-var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET {methods=[getVarId]}
+var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getVarId getName setName getNameIdentifier getPresentation]}
 
 simple_expression ::= additive_expression rel_operations additive_expression | additive_expression
 
@@ -136,7 +136,7 @@ mul_operation ::= MULTIPLY | DIVIDE
 
 factor ::= call | NUM | STRING_LITERAL | TRUE | FALSE | LEFT_PARANTHESIS expression RIGHT_PARANTHESIS | var
 
-call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS {methods=[getCallId]}
+call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getCallId getName setName getNameIdentifier getPresentation]}
 
 args ::= arg_list | /*epsilon*/
 

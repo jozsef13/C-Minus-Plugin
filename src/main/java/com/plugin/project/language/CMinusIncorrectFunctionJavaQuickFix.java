@@ -14,11 +14,11 @@ import com.intellij.psi.impl.PsiDocumentManagerImpl;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 
-public class CMinusIncorrectFunctionQuickFix extends BaseIntentionAction {
+public class CMinusIncorrectFunctionJavaQuickFix extends BaseIntentionAction {
 
     PsiLiteralExpression literalExpression;
 
-    public CMinusIncorrectFunctionQuickFix(PsiLiteralExpression literalExpression) {
+    public CMinusIncorrectFunctionJavaQuickFix(PsiLiteralExpression literalExpression) {
         this.literalExpression = literalExpression;
     }
 

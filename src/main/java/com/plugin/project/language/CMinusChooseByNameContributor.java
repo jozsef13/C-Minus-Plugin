@@ -4,9 +4,7 @@ import com.intellij.navigation.ChooseByNameContributor;
 import com.intellij.navigation.NavigationItem;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import com.plugin.project.language.psi.CMinusConstDeclaration;
-import com.plugin.project.language.psi.CMinusFunDeclaration;
-import com.plugin.project.language.psi.CMinusVarDeclaration;
+import com.plugin.project.language.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,6 +28,18 @@ public class CMinusChooseByNameContributor implements ChooseByNameContributor {
             } else if (reference instanceof CMinusConstDeclaration){
                 if(((CMinusConstDeclaration) reference).getConstDeclId() != null && ((CMinusConstDeclaration) reference).getConstDeclId().length() > 0){
                     tempName = ((CMinusConstDeclaration) reference).getConstDeclId();
+                }
+            } else if(reference instanceof CMinusCall){
+                if(((CMinusCall) reference).getCallId() != null && ((CMinusCall) reference).getCallId().length() > 0){
+                    tempName = ((CMinusCall) reference).getCallId();
+                }
+            } else if(reference instanceof CMinusVar){
+                if(((CMinusVar) reference).getVarId() != null && ((CMinusVar) reference).getVarId().length() > 0){
+                    tempName = ((CMinusVar) reference).getVarId();
+                }
+            } else if(reference instanceof CMinusParam){
+                if(((CMinusParam) reference).getParamId() != null && ((CMinusParam) reference).getParamId().length() > 0){
+                    tempName = ((CMinusParam) reference).getParamId();
                 }
             }
 
