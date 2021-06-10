@@ -122,7 +122,13 @@ public class CMinusPsiImplUtil {
         } else if(element instanceof CMinusConstDeclaration){
             return "const";
         } else {
-            return null;
+            if(element instanceof CMinusVar){
+                return "variable";
+            } else if(element instanceof CMinusCall){
+                return "function call";
+            } else {
+                return null;
+            }
         }
     }
 

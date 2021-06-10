@@ -71,4 +71,9 @@ public class CMinusLocalReference extends PsiReferenceBase<PsiElement> implement
         }
         return variants.toArray();
     }
+
+    @Override
+    public @NotNull TextRange getRangeInElement() {
+        return TextRange.from(0, getElement().getTextLength());
+    }
 }

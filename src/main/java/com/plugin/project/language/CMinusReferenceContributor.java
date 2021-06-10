@@ -64,8 +64,7 @@ public class CMinusReferenceContributor extends PsiReferenceContributor {
                 return PsiReference.EMPTY_ARRAY;
             }
         });
-        System.out.println(PlatformPatterns.psiElement().withElementType(CMinusTypes.ID));
-        System.out.println(" ---- Here we are!!!!!! -----------");
+
         registrar.registerReferenceProvider(PlatformPatterns.psiElement().withElementType(CMinusTypes.ID), new PsiReferenceProvider() {
             @Override
             public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {

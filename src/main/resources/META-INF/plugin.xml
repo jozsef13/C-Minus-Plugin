@@ -26,6 +26,7 @@
         <codeInsight.lineMarkerProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusLocalLineMarkerProvider"/>
         <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.CMinusCompletionContributor"/>
         <psi.referenceContributor implementation="com.plugin.project.language.CMinusReferenceContributor" />
+        <lang.braceMatcher language="CMinus" implementationClass="com.plugin.project.language.CMinusBraceMatcher" />
         <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.CMinusRefactoringSupportProvider" />
         <lang.findUsagesProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusFindUsagesProvider" />
         <gotoSymbolContributor implementation="com.plugin.project.language.CMinusChooseByNameContributor" />

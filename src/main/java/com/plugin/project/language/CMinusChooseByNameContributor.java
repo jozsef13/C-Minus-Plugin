@@ -37,10 +37,6 @@ public class CMinusChooseByNameContributor implements ChooseByNameContributor {
                 if(((CMinusVar) reference).getVarId() != null && ((CMinusVar) reference).getVarId().length() > 0){
                     tempName = ((CMinusVar) reference).getVarId();
                 }
-            } else if(reference instanceof CMinusParam){
-                if(((CMinusParam) reference).getParamId() != null && ((CMinusParam) reference).getParamId().length() > 0){
-                    tempName = ((CMinusParam) reference).getParamId();
-                }
             }
 
             if(!tempName.isEmpty()){

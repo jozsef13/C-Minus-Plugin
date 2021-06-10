@@ -189,11 +189,7 @@ public class CMinusUtil {
                     referenceId = ((CMinusVarDeclaration) reference).getVarDeclId();
                 } else if (reference instanceof CMinusConstDeclaration) {
                     referenceId = ((CMinusConstDeclaration) reference).getConstDeclId();
-                }  else if(reference instanceof CMinusCall){
-                    referenceId = ((CMinusCall) reference).getCallId();
-                } else if(reference instanceof CMinusVar){
-                    referenceId = ((CMinusVar) reference).getVarId();
-                } else if(reference instanceof CMinusParam){
+                } else if (reference instanceof CMinusParam) {
                     referenceId = ((CMinusParam) reference).getParamId();
                 }
 

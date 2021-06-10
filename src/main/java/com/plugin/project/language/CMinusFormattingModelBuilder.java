@@ -14,21 +14,28 @@ import org.jetbrains.annotations.Nullable;
 public class CMinusFormattingModelBuilder implements FormattingModelBuilder {
 
     private static SpacingBuilder createSpaceBuilder(CodeStyleSettings settings){
-        SpacingBuilder spacingBuilderToReturn = new SpacingBuilder(settings, CMinusLanguage.INSTANCE);
-        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.REL_OPERATIONS).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AROUND_RELATIONAL_OPERATORS).before(CMinusTypes.EXPRESSION).none());
-        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.ADD_OPERATION).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AROUND_ADDITIVE_OPERATORS).before(CMinusTypes.EXPRESSION).none());
-        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.MUL_OPERATION).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AROUND_MULTIPLICATIVE_OPERATORS).before(CMinusTypes.EXPRESSION).none());
-        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.ASSIGN).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AROUND_ASSIGNMENT_OPERATORS).before(CMinusTypes.EXPRESSION).none());
-//        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.TYPE_SPECIFIER).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AFTER_TYPE_CAST).before(CMinusTypes.ID).none());
-//        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.COMMA).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AFTER_COMMA).before(CMinusTypes.PARAM).none());
-//        spacingBuilderToReturn.append(new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.COMMA).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AFTER_COMMA).before(CMinusTypes.ARGS).none());
-
-        return new SpacingBuilder(settings, CMinusLanguage.INSTANCE).around(CMinusTypes.ASSIGN).spaceIf(settings.getCommonSettings(CMinusLanguage.INSTANCE.getID()).SPACE_AROUND_ASSIGNMENT_OPERATORS).before(CMinusTypes.EXPRESSION).none();
+        return new SpacingBuilder(settings, CMinusLanguage.INSTANCE)
+                .around(CMinusTypes.AND).spaces(1)
+                .around(CMinusTypes.OR).spaces(1)
+                .after(CMinusTypes.TYPE_SPECIFIER).spaces(1)
+                .around(CMinusTypes.REL_OPERATIONS).spaces(1)
+                .around(CMinusTypes.ADD_OPERATION).spaces(1)
+                .around(CMinusTypes.MUL_OPERATION).spaces(1)
+                .after(CMinusTypes.FUN_DECLARATION).spaces(1)
+                .after(CMinusTypes.COMMA).spaces(1)
+                .after(CMinusTypes.IF).spaces(1)
+                .after(CMinusTypes.WHILE).spaces(1)
+                .around(CMinusTypes.READ).spaces(1)
+                .around(CMinusTypes.WRITE).spaces(1)
+                .after(CMinusTypes.CONST).spaces(1)
+                .around(CMinusTypes.ELSE).spaces(1)
+                .after(CMinusTypes.RETURN).spaces(1);
     }
 
     @Override
     public @NotNull FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
-        return FormattingModelProvider.createFormattingModelForPsiFile(element.getContainingFile(), new CMinusBlock(element.getNode(), Wrap.createWrap(WrapType.NONE, false), Alignment.createAlignment(), createSpaceBuilder(settings)), settings);
+        return FormattingModelProvider.createFormattingModelForPsiFile(element.getContainingFile(), new CMinusBlock(element.getNode(),
+                Wrap.createWrap(WrapType.NONE, false), Alignment.createAlignment(), createSpaceBuilder(settings)), settings);
     }
 
     @Override
