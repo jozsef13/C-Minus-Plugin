@@ -34,8 +34,36 @@ public class CMinusFormattingModelBuilder implements FormattingModelBuilder {
 
     @Override
     public @NotNull FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
-        return FormattingModelProvider.createFormattingModelForPsiFile(element.getContainingFile(), new CMinusBlock(element.getNode(),
-                Wrap.createWrap(WrapType.NONE, false), Alignment.createAlignment(), createSpaceBuilder(settings)), settings);
+        return new FormattingModel() {
+            private FormattingModel myModel;
+            {
+                myModel = FormattingModelProvider.createFormattingModelForPsiFile(element.getContainingFile(), new CMinusBlock(element, createSpaceBuilder(settings)), settings);
+            }
+            @Override
+            public @NotNull Block getRootBlock() {
+                return myModel.getRootBlock();
+            }
+
+            @Override
+            public @NotNull FormattingDocumentModel getDocumentModel() {
+                return myModel.getDocumentModel();
+            }
+
+            @Override
+            public TextRange replaceWhiteSpace(TextRange textRange, String whiteSpace) {
+                return myModel.replaceWhiteSpace(textRange, whiteSpace);
+            }
+
+            @Override
+            public TextRange shiftIndentInsideRange(ASTNode node, TextRange range, int indent) {
+                return myModel.shiftIndentInsideRange(node, range, indent);
+            }
+
+            @Override
+            public void commitChanges() {
+                myModel.commitChanges();
+            }
+        };
     }
 
     @Override

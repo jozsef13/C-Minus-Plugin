@@ -55,10 +55,6 @@ public class CMinusLocalReference extends PsiReferenceBase<PsiElement> implement
                 if(((CMinusConstDeclaration) reference).getConstDeclId() != null && ((CMinusConstDeclaration) reference).getConstDeclId().length() > 0){
                     variants.add(LookupElementBuilder.create(((CMinusConstDeclaration) reference).getConstDeclId()).withIcon(CMinusIcons.FILE).withTypeText(reference.getContainingFile().getName() + " - constant"));
                 }
-            } else if(reference instanceof CMinusCall){
-                if(((CMinusCall) reference).getCallId() != null && ((CMinusCall) reference).getCallId().length() > 0){
-                    variants.add(LookupElementBuilder.create(((CMinusCall) reference).getCallId()).withIcon(CMinusIcons.FILE).withTypeText(reference.getContainingFile().getName() + " - function call"));
-                }
             } else if(reference instanceof CMinusVar){
                 if(((CMinusVar) reference).getVarId() != null && ((CMinusVar) reference).getVarId().length() > 0){
                     variants.add(LookupElementBuilder.create(((CMinusVar) reference).getVarId()).withIcon(CMinusIcons.FILE).withTypeText(reference.getContainingFile().getName() + " - variable"));

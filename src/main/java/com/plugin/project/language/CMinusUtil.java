@@ -194,7 +194,7 @@ public class CMinusUtil {
                 }
 
                 if (!referenceId.isEmpty()) {
-                    if (id.split("\\(\\)")[0].equals(referenceId)) {
+                    if (id.split("\\(")[0].replaceAll("\\s","").equals(referenceId)) {
                         result.add(reference);
                     }
                 }
