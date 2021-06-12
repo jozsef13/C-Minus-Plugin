@@ -30,7 +30,7 @@ public class CMinusReferenceContributor extends PsiReferenceContributor {
             @Override
             public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
                 CMinusCall call = (CMinusCall) element;
-                String value = call.getCallId();
+                String value = call.getText();
                 if(value != null){
                     TextRange reference = new TextRange(0, value.length()+1);
                     return new PsiReference[]{new CMinusLocalReference(element, reference)};

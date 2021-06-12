@@ -5,9 +5,9 @@ import com.intellij.formatting.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
+import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
 import com.plugin.project.language.psi.CMinusTypes;
 import org.jetbrains.annotations.NotNull;
@@ -16,13 +16,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMinusBlock implements Block {
+public class CMinusBlock extends AbstractBlock {
 
     private final ASTNode myNode;
     private List<Block> myBlocks;
     private final SpacingBuilder spacingBuilder;
 
     public CMinusBlock(PsiElement psiElement, SpacingBuilder builder) {
+        super(psiElement.getNode(), Wrap.createWrap(WrapType.NONE, false), Alignment.createAlignment());
         spacingBuilder = builder;
         myNode = psiElement.getNode();
         psiElement.getFirstChild();
@@ -30,32 +31,29 @@ public class CMinusBlock implements Block {
 
 
     protected List<Block> buildChildren() {
-        List<Block> result = new ArrayList<>();
-
-        myNode.getPsi().acceptChildren(new PsiElementVisitor() {
-            @Override
-            public void visitElement(@NotNull PsiElement element) {
-                final ASTNode node = element.getNode();
-
-                if(node != null){
-                    final IElementType nodeType = node.getElementType();
-                    if(nodeType == CMinusTypes.LEFT_BRACE || nodeType == CMinusTypes.RIGHT_BRACE || nodeType == CMinusTypes.STATEMENT){
-                        final CMinusBlock block = new CMinusBlock(element, spacingBuilder);
-                        result.add(block);
-                    }
-                }
-
-                super.visitElement(element);
+        List<Block> blocks = new ArrayList<>();
+        ASTNode child = myNode.getFirstChildNode();
+        while(child != null){
+            if(child.getElementType() != TokenType.WHITE_SPACE){
+                Block block = new CMinusBlock(child.getPsi(), spacingBuilder);
+                blocks.add(block);
             }
-        });
 
-        return result;
+            child = child.getTreeNext();
+        }
+
+        return blocks;
     }
 
     @Override
     public Indent getIndent() {
         final IElementType type = myNode.getElementType();
-        return Indent.getNormalIndent(true);
+        final IElementType parentType = myNode.getPsi().getParent().getNode().getElementType();
+        if(type == CMinusTypes.STATEMENT || (type == CMinusTypes.VAR_DECLARATION && parentType == CMinusTypes.LOCAL_DECLARATIONS)){
+            return Indent.getNormalIndent(true);
+        }
+
+        return Indent.getNoneIndent();
     }
 
     @Override
@@ -69,6 +67,7 @@ public class CMinusBlock implements Block {
                 return Spacing.createSpacing(0, 0, 1, true, 2);
             }
         }
+
         return spacingBuilder.getSpacing(this, block1, block2);
     }
 
@@ -79,7 +78,7 @@ public class CMinusBlock implements Block {
 
     @Override
     public @NotNull ChildAttributes getChildAttributes(int newChildIndex) {
-        if(myNode.getElementType() == CMinusTypes.STATEMENT || myNode.getElementType() == CMinusTypes.LEFT_BRACE || myNode.getElementType() == CMinusTypes.RIGHT_BRACE){
+        if(myNode.getElementType() == CMinusTypes.STATEMENT || myNode.getElementType() == CMinusTypes.VAR_DECLARATION){
             return new ChildAttributes(Indent.getNormalIndent(), null);
         }
         return new ChildAttributes(Indent.getNoneIndent(), null);
