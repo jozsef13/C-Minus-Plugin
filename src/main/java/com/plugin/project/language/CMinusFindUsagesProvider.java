@@ -35,8 +35,6 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
             return "cminus variable";
         } else if (element instanceof CMinusConstDeclaration) {
             return "cminus constant";
-        } else if(element instanceof CMinusVar){
-            return "cminus variable use";
         } else {
             return "";
         }
@@ -61,8 +59,6 @@ public class CMinusFindUsagesProvider implements FindUsagesProvider {
             return ((CMinusVarDeclaration) element).getVarDeclId();
         } else if (element instanceof CMinusConstDeclaration) {
             return ((CMinusConstDeclaration) element).getConstDeclId();
-        } else if(element instanceof CMinusVar){
-            return ((CMinusVar) element).getVarId();
         } else {
             return "";
         }

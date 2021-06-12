@@ -216,4 +216,35 @@ public class CMinusUtil {
 
         return result;
     }
+
+    public static List<CMinusCall> findLocalFunctionCalls(PsiFile containingFile, String id) {
+        List<CMinusCall> result = new ArrayList<>();
+        if (containingFile instanceof CMinusFile && containingFile != null) {
+            CMinusFile cMinusFile = (CMinusFile) containingFile;
+            Collection<CMinusCall> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusCall.class);
+            for (CMinusCall reference : references) {
+                if (id.split("\\(")[0].equals(reference.getCallId())) {
+                    result.add(reference);
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    public static List<CMinusVar> findLocalVarUsages(PsiFile containingFile, String id) {
+        List<CMinusVar> result = new ArrayList<>();
+        if (containingFile instanceof CMinusFile && containingFile != null) {
+            CMinusFile cMinusFile = (CMinusFile) containingFile;
+            Collection<CMinusVar> references = PsiTreeUtil.findChildrenOfType(cMinusFile, CMinusVar.class);
+            for (CMinusVar reference : references) {
+                if (id.equals(reference.getVarId())) {
+                    result.add(reference);
+                }
+            }
+        }
+
+        return result;
+    }
 }

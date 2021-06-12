@@ -6,7 +6,7 @@ import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.intellij.navigation.ItemPresentation;
 
-public interface CMinusCall extends CMinusNamedElement {
+public interface CMinusCall extends PsiElement {
 
   @Nullable
   CMinusArgs getArgs();
@@ -15,12 +15,6 @@ public interface CMinusCall extends CMinusNamedElement {
   PsiElement getId();
 
   String getCallId();
-
-  String getName();
-
-  PsiElement setName(String newName);
-
-  PsiElement getNameIdentifier();
 
   ItemPresentation getPresentation();
 

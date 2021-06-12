@@ -12,43 +12,46 @@ import org.jetbrains.annotations.Nullable;
 public class CMinusCompletionContributor extends CompletionContributor {
 
     public CMinusCompletionContributor() {
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(CMinusTypes.CIN),
-                new CompletionProvider<CompletionParameters>() {
-                    @Override
-                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.READ));
-                    }
-                });
 
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(CMinusTypes.COUT),
-                new CompletionProvider<CompletionParameters>() {
-                    @Override
-                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.WRITE));
-                    }
-                });
+//        extend(CompletionType.BASIC, PlatformPatterns.psiElement().withElementType(CMinusTypes.CIN),
+//                new CompletionProvider<CompletionParameters>() {
+//                    @Override
+//                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.READ.toString()));
+//                    }
+//                });
+//
+//        extend(CompletionType.BASIC, PlatformPatterns.psiElement().withElementType(CMinusTypes.COUT),
+//                new CompletionProvider<CompletionParameters>() {
+//                    @Override
+//                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.WRITE.toString()));
+//                    }
+//                });
+//
+//        extend(CompletionType.BASIC, PlatformPatterns.psiElement().withElementType(CMinusTypes.IF),
+//                new CompletionProvider<CompletionParameters>() {
+//                    @Override
+//                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_PARANTHESIS.toString()));
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_PARANTHESIS.toString()));
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_BRACE.toString()));
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_BRACE.toString()));
+//                    }
+//                });
+//
+//        extend(CompletionType.BASIC, PlatformPatterns.psiElement().withElementType(CMinusTypes.WHILE),
+//                new CompletionProvider<CompletionParameters>() {
+//                    @Override
+//                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_PARANTHESIS.toString()));
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_PARANTHESIS.toString()));
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_BRACE.toString()));
+//                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_BRACE.toString()));
+//                    }
+//                });
 
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(CMinusTypes.IF),
-                new CompletionProvider<CompletionParameters>() {
-                    @Override
-                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_PARANTHESIS));
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_PARANTHESIS));
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_BRACE));
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_BRACE));
-                    }
-                });
 
-        extend(CompletionType.BASIC, PlatformPatterns.psiElement(CMinusTypes.WHILE),
-                new CompletionProvider<CompletionParameters>() {
-                    @Override
-                    protected void addCompletions(@NotNull CompletionParameters parameters, @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_PARANTHESIS));
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_PARANTHESIS));
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.LEFT_BRACE));
-                        result.addElement(LookupElementBuilder.create(CMinusTypes.RIGHT_BRACE));
-                    }
-                });
     }
 
 }

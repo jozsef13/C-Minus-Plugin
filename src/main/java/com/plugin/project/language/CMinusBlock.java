@@ -48,8 +48,13 @@ public class CMinusBlock extends AbstractBlock {
     @Override
     public Indent getIndent() {
         final IElementType type = myNode.getElementType();
-        final IElementType parentType = myNode.getPsi().getParent().getNode().getElementType();
-        if(type == CMinusTypes.STATEMENT || (type == CMinusTypes.VAR_DECLARATION && parentType == CMinusTypes.LOCAL_DECLARATIONS)){
+        boolean isParentLocalDecl = false;
+        if(myNode.getPsi() != null && myNode.getPsi().getParent() != null){
+            final IElementType parentType = myNode.getPsi().getParent().getNode().getElementType();
+            isParentLocalDecl = parentType == CMinusTypes.LOCAL_DECLARATIONS;
+        }
+
+        if(type == CMinusTypes.STATEMENT || (type == CMinusTypes.VAR_DECLARATION && isParentLocalDecl)){
             return Indent.getNormalIndent(true);
         }
 

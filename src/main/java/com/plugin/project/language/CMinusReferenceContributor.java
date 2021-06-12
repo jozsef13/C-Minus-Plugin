@@ -1,6 +1,7 @@
 package com.plugin.project.language;
 
 import com.intellij.openapi.util.TextRange;
+import com.intellij.patterns.ElementPattern;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
@@ -65,17 +66,17 @@ public class CMinusReferenceContributor extends PsiReferenceContributor {
             }
         });
 
-        registrar.registerReferenceProvider(PlatformPatterns.psiElement().withElementType(CMinusTypes.ID), new PsiReferenceProvider() {
-            @Override
-            public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
-                PsiElement psiElement = element;
-                String value = element.getText();
-                if(value != null){
-                    TextRange reference = new TextRange(0, value.length()+1);
-                    return new PsiReference[]{new CMinusLocalReference(element, reference)};
-                }
-                return PsiReference.EMPTY_ARRAY;
-            }
-        });
+//        registrar.registerReferenceProvider(PlatformPatterns.psiElement(), new PsiReferenceProvider() {
+//            @Override
+//            public PsiReference @NotNull [] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
+//                PsiElement psiElement = element;
+//                String value = element.getText();
+//                if(value != null){
+//                    TextRange reference = new TextRange(0, value.length()+1);
+//                    return new PsiReference[]{new CMinusLocalReference(element, reference)};
+//                }
+//                return PsiReference.EMPTY_ARRAY;
+//            }
+//        });
     }
 }
