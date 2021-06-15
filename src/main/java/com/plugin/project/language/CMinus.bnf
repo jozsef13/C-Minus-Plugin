@@ -19,9 +19,7 @@ tokens =
     TRUE = 'true'
     FALSE = 'false'
     BOOL = 'bool'
-    CHAR = 'char'
-    DOUBLE = 'double'
-    FLOAT = 'float'
+    STRING = 'string'
     CONST = 'const'
     CIN = 'cin'
     COUT = 'cout'
@@ -80,7 +78,7 @@ const_declaration ::= CONST ID ASSIGN NUM END_OF_INSTRUCTION | CONST ID ASSIGN S
 
 var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getVarDeclId getName setName getNameIdentifier getPresentation]}
 
-type_specifier ::= INT | VOID | CHAR | FLOAT | DOUBLE | BOOL
+type_specifier ::= INT | VOID | STRING | BOOL
 
 fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS compound_stmt {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getFunDeclId getName setName getNameIdentifier getPresentation]}
 
@@ -116,7 +114,7 @@ read_statement ::= CIN READ var END_OF_INSTRUCTION
 
 write_statement ::= COUT WRITE expression END_OF_INSTRUCTION
 
-var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET {methods=[getVarId getPresentation]}
+var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET {methods=[getVarId getPresentation getReference setName]}
 
 simple_expression ::= additive_expression rel_operations additive_expression | additive_expression
 
@@ -136,7 +134,7 @@ mul_operation ::= MULTIPLY | DIVIDE
 
 factor ::= call | NUM | STRING_LITERAL | TRUE | FALSE | LEFT_PARANTHESIS expression RIGHT_PARANTHESIS | var
 
-call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS {methods=[getCallId getPresentation]}
+call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS {methods=[getCallId getPresentation getReference setName]}
 
 args ::= arg_list | /*epsilon*/
 

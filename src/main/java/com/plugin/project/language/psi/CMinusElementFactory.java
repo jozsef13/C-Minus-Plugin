@@ -41,4 +41,9 @@ public class CMinusElementFactory {
         final CMinusFile file = createFile(project, "const " + name + " = 0;\n");
         return PsiTreeUtil.findChildOfType(file, CMinusConstDeclaration.class);
     }
+
+    public static PsiElement createParameter(Project project, String newName) {
+        final CMinusFile file = createFile(project, "void fun(int " + newName + ") {}");
+        return PsiTreeUtil.findChildOfType(file, CMinusParam.class);
+    }
 }

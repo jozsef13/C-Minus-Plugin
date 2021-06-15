@@ -54,7 +54,6 @@ public interface CMinusTypes {
   IElementType ARG_LIST1_1_0 = new CMinusTokenType("arg_list1_1_0");
   IElementType ASSIGN = new CMinusTokenType("=");
   IElementType BOOL = new CMinusTokenType("bool");
-  IElementType CHAR = new CMinusTokenType("char");
   IElementType CIN = new CMinusTokenType("cin");
   IElementType COMMA = new CMinusTokenType(",");
   IElementType COMMENT = new CMinusTokenType("COMMENT");
@@ -92,6 +91,7 @@ public interface CMinusTypes {
   IElementType SMALLER = new CMinusTokenType("<");
   IElementType SMALLER_OR_EQUAL = new CMinusTokenType("<=");
   IElementType STATEMENT_LIST1_1_0 = new CMinusTokenType("statement_list1_1_0");
+  IElementType STRING = new CMinusTokenType("string");
   IElementType STRING_LITERAL = new CMinusTokenType("STRING_LITERAL");
   IElementType SUBSTRACT = new CMinusTokenType("-");
   IElementType TERM1_1_0 = new CMinusTokenType("term1_1_0");

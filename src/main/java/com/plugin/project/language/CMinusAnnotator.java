@@ -8,11 +8,13 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.plugin.project.language.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CMinusAnnotator implements Annotator {
 
@@ -48,21 +50,21 @@ public class CMinusAnnotator implements Annotator {
             } else if (element instanceof CMinusVar) {
                 key = ((CMinusVar) element).getVarId();
                 keyRange = new TextRange(element.getTextRange().getStartOffset(), element.getTextRange().getEndOffset());
-            } else if(element instanceof CMinusVarDeclaration) {
+            } else if (element instanceof CMinusVarDeclaration) {
                 key = ((CMinusVarDeclaration) element).getVarDeclId();
                 keyRange = new TextRange(((CMinusVarDeclaration) element).getId().getTextRange().getStartOffset(), ((CMinusVarDeclaration) element).getId().getTextRange().getEndOffset());
-            } else if(element instanceof CMinusFunDeclaration) {
+            } else if (element instanceof CMinusFunDeclaration) {
                 key = ((CMinusFunDeclaration) element).getFunDeclId();
                 keyRange = new TextRange(((CMinusFunDeclaration) element).getId().getTextRange().getStartOffset(), ((CMinusFunDeclaration) element).getId().getTextRange().getEndOffset());
-            } else if(element instanceof CMinusConstDeclaration) {
+            } else if (element instanceof CMinusConstDeclaration) {
                 key = ((CMinusConstDeclaration) element).getConstDeclId();
                 keyRange = new TextRange(((CMinusConstDeclaration) element).getId().getTextRange().getStartOffset(), ((CMinusConstDeclaration) element).getId().getTextRange().getEndOffset());
             }
 
             if (!key.isEmpty() && keyRange != null) {
-                if(element instanceof CMinusCall || element instanceof CMinusVar){
+                if (element instanceof CMinusCall || element instanceof CMinusVar) {
                     annotateForFactorAccordingToKey(key, keyRange, holder, element);
-                } else if(element instanceof CMinusVarDeclaration || element instanceof CMinusConstDeclaration || element instanceof CMinusFunDeclaration){
+                } else if (element instanceof CMinusVarDeclaration || element instanceof CMinusConstDeclaration || element instanceof CMinusFunDeclaration) {
                     verifyIfDeclarationExists(key, keyRange, holder, element);
                 }
 
@@ -71,9 +73,9 @@ public class CMinusAnnotator implements Annotator {
     }
 
     private void verifyIfDeclarationExists(String key, TextRange keyRange, AnnotationHolder holder, PsiElement element) {
-        if(element instanceof CMinusVarDeclaration) {
+        if (element instanceof CMinusVarDeclaration) {
             List<CMinusVarDeclaration> varDeclarations = CMinusUtil.findLocalVariableReferences(element.getContainingFile(), key);
-            if(varDeclarations.size() > 1) {
+            if (varDeclarations.size() > 1) {
                 holder.newAnnotation(HighlightSeverity.ERROR, "Variable already declared")
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
@@ -81,33 +83,33 @@ public class CMinusAnnotator implements Annotator {
             }
 
             List<CMinusVar> varUsages = CMinusUtil.findLocalVarUsages(element.getContainingFile(), key);
-            if(varUsages.isEmpty()){
+            if (varUsages.isEmpty()) {
                 holder.newAnnotation(HighlightSeverity.WARNING, "Variable is never used")
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.WEAK_WARNING)
                         .create();
             }
-        } else if(element instanceof CMinusFunDeclaration) {
+        } else if (element instanceof CMinusFunDeclaration) {
             List<CMinusFunDeclaration> functionReferences = CMinusUtil.findLocalFunctionReferences(element.getContainingFile(), key);
-            if (functionReferences.size() > 1){
+            if (functionReferences.size() > 1) {
                 holder.newAnnotation(HighlightSeverity.ERROR, "Function already declared")
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
                         .create();
             }
 
-            if(!key.equals("main")){
+            if (!key.equals("main")) {
                 List<CMinusCall> functionCalls = CMinusUtil.findLocalFunctionCalls(element.getContainingFile(), key);
-                if(functionCalls.isEmpty()){
+                if (functionCalls.isEmpty()) {
                     holder.newAnnotation(HighlightSeverity.WARNING, "Function is never called")
                             .range(keyRange)
                             .highlightType(ProblemHighlightType.WEAK_WARNING)
                             .create();
                 }
             }
-        } else if(element instanceof CMinusConstDeclaration) {
+        } else if (element instanceof CMinusConstDeclaration) {
             List<CMinusConstDeclaration> constReferences = CMinusUtil.findLocalConstantReferences(element.getContainingFile(), key);
-            if (constReferences.size() > 1){
+            if (constReferences.size() > 1) {
                 holder.newAnnotation(HighlightSeverity.ERROR, "Constant already declared")
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
@@ -115,7 +117,7 @@ public class CMinusAnnotator implements Annotator {
             }
 
             List<CMinusVar> constantUsages = CMinusUtil.findLocalVarUsages(element.getContainingFile(), key);
-            if(constantUsages.isEmpty()){
+            if (constantUsages.isEmpty()) {
                 holder.newAnnotation(HighlightSeverity.WARNING, "Constant is never used")
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.WEAK_WARNING)
@@ -210,9 +212,22 @@ public class CMinusAnnotator implements Annotator {
             }
 
             if (!isFunction) {
-                List<CMinusVarDeclaration> variableReferences = CMinusUtil.findLocalVariableReferences(element.getContainingFile(), key);
+                List<CMinusVarDeclaration> tempVarReferences = CMinusUtil.findLocalVariableReferences(element.getContainingFile(), key);
+                List<CMinusVarDeclaration> variableReferences = tempVarReferences.stream().filter(varReference -> {
+                    CMinusFunDeclaration myElementParent = PsiTreeUtil.getParentOfType(element, CMinusFunDeclaration.class);
+                    CMinusFunDeclaration referenceParent = PsiTreeUtil.getParentOfType(varReference, CMinusFunDeclaration.class);
+                    return varReference.getParent() instanceof CMinusDeclaration || myElementParent.equals(referenceParent);
+                }).collect(Collectors.toList());
+
                 List<CMinusConstDeclaration> constReferences = CMinusUtil.findLocalConstantReferences(element.getContainingFile(), key);
-                List<CMinusParam> paramReference = CMinusUtil.findLocalParamReferences(element.getContainingFile(), key);
+
+                List<CMinusParam> tempParamReferences = CMinusUtil.findLocalParamReferences(element.getContainingFile(), key);
+                List<CMinusParam> paramReference = tempParamReferences.stream().filter(param -> {
+                    CMinusFunDeclaration myElementParent = PsiTreeUtil.getParentOfType(element, CMinusFunDeclaration.class);
+                    CMinusFunDeclaration referenceParent = PsiTreeUtil.getParentOfType(param, CMinusFunDeclaration.class);
+                    return myElementParent.equals(referenceParent);
+                }).collect(Collectors.toList());
+
                 if (variableReferences.isEmpty() && constReferences.isEmpty() && paramReference.isEmpty()) {
                     holder.newAnnotation(HighlightSeverity.ERROR, "Unresolved variable/constant reference")
                             .range(keyRange)

@@ -2,8 +2,11 @@ package com.plugin.project.language.psi.impl;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiReference;
 import com.plugin.project.language.CMinusIcons;
+import com.plugin.project.language.CMinusLocalReference;
 import com.plugin.project.language.psi.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
@@ -58,6 +61,8 @@ public class CMinusPsiImplUtil {
                 }
             } else if(element instanceof CMinusCall){
                 elementReference = CMinusElementFactory.createFunction(element.getProject(), newName);
+            } else if(element instanceof CMinusParam){
+                elementReference = CMinusElementFactory.createParameter(element.getProject(), newName);
             }
 
             if (elementReference != null) {
@@ -142,6 +147,24 @@ public class CMinusPsiImplUtil {
             } else if (stringLiteralNode != null) {
                 return stringLiteralNode.getText();
             }
+        }
+
+        return null;
+    }
+
+    public static PsiReference getReference(PsiElement element){
+        if(element instanceof CMinusCall){
+            return new CMinusLocalReference(element, new TextRange(0, ((CMinusCall) element).getCallId().length()));
+        } else if(element instanceof CMinusVar){
+            return new CMinusLocalReference(element, new TextRange(0, ((CMinusVar) element).getVarId().length()));
+        } else if(element instanceof CMinusVarDeclaration){
+            return new CMinusLocalReference(element, new TextRange(0, ((CMinusVarDeclaration) element).getVarDeclId().length()));
+        } else if(element instanceof CMinusFunDeclaration){
+            return new CMinusLocalReference(element, new TextRange(0, ((CMinusFunDeclaration) element).getFunDeclId().length()));
+        } else if(element instanceof CMinusConstDeclaration){
+            return new CMinusLocalReference(element, new TextRange(0, ((CMinusConstDeclaration) element).getConstDeclId().length()));
+        } else if(element instanceof CMinusParam){
+            return new CMinusLocalReference(element, new TextRange(0, ((CMinusParam) element).getParamId().length()));
         }
 
         return null;

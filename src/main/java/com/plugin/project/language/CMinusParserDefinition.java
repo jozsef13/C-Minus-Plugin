@@ -44,7 +44,7 @@ public class CMinusParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull TokenSet getStringLiteralElements() {
-        return TokenSet.EMPTY;
+        return TokenSet.create(CMinusTypes.STRING_LITERAL);
     }
 
     @Override

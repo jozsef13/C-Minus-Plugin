@@ -860,16 +860,14 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // INT | VOID | CHAR | FLOAT | DOUBLE | BOOL
+  // INT | VOID | STRING | BOOL
   public static boolean type_specifier(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_specifier")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, TYPE_SPECIFIER, "<type specifier>");
     r = consumeToken(b, INT);
     if (!r) r = consumeToken(b, VOID);
-    if (!r) r = consumeToken(b, CHAR);
-    if (!r) r = consumeToken(b, FLOAT);
-    if (!r) r = consumeToken(b, DOUBLE);
+    if (!r) r = consumeToken(b, STRING);
     if (!r) r = consumeToken(b, BOOL);
     exit_section_(b, l, m, r, false, null);
     return r;

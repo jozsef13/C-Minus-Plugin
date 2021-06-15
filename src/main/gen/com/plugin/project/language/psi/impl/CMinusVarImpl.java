@@ -11,6 +11,7 @@ import static com.plugin.project.language.psi.CMinusTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.plugin.project.language.psi.*;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiReference;
 
 public class CMinusVarImpl extends ASTWrapperPsiElement implements CMinusVar {
 
@@ -48,6 +49,16 @@ public class CMinusVarImpl extends ASTWrapperPsiElement implements CMinusVar {
   @Override
   public ItemPresentation getPresentation() {
     return CMinusPsiImplUtil.getPresentation(this);
+  }
+
+  @Override
+  public PsiReference getReference() {
+    return CMinusPsiImplUtil.getReference(this);
+  }
+
+  @Override
+  public PsiElement setName(String newName) {
+    return CMinusPsiImplUtil.setName(this, newName);
   }
 
 }

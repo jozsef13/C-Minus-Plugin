@@ -1,0 +1,72 @@
+<templateSet group="CMinus">
+  <template name="if" value="if($EXPRESSION$) {&#xD;  }$END$" description="SDK: New if statement" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="wh" value="while($EXPRESSION$) {&#xD;  }$END$" description="SDK: New while statement" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="fun" value="$TYPE_SPECIFIER$ $NAME$($PARAM_TYPE$ $PARAM$) {&#xD;  }$END$" description="SDK: New function declaration" toReformat="false" toShortenFQNames="true">
+    <variable name="TYPE_SPECIFIER" expression="methodReturnType()" defaultValue="" alwaysStopAt="true" />
+    <variable name="NAME" expression="methodName()" defaultValue="" alwaysStopAt="true" />
+    <variable name="PARAM_TYPE" expression="methodParameterTypes()" defaultValue="" alwaysStopAt="true" />
+    <variable name="PARAM" expression="methodParameters()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="var" value="$TYPE_SPECIFIER$ $VAR_NAME$;$END$" description="SDK: New variable declaration" toReformat="false" toShortenFQNames="true">
+    <variable name="TYPE_SPECIFIER" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="VAR_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="cons" value="const $VAR_NAME$ = $VALUE$;$END$" description="SDK: New constant declaration" toReformat="false" toShortenFQNames="true">
+    <variable name="VAR_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="VALUE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="call" value="$FUNCTION$();$END$" description="SDK: Call function statement" toReformat="false" toShortenFQNames="true">
+    <variable name="FUNCTION" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="read" value="cin &lt;&lt; $VARIABLE$;$END$" description="SDK: Read statement" toReformat="false" toShortenFQNames="true">
+    <variable name="VARIABLE" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="write" value="cout &gt;&gt; $EXPRESSION$;$END$" description="SDK: Write statement" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="main" value="int main(void) {&#xD;  return 0;} $END$" description="SDK: Main function declaration" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="ret" value="return $EXPRESSION$;$END$" description="SDK: Return statement" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+  <template name="st" value="string$END$" description="SDK: String declaration" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="CMINUS" value="true"/>
+    </context>
+  </template>
+</templateSet>

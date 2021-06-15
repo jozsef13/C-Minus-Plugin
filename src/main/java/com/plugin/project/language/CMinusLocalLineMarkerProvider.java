@@ -40,7 +40,7 @@ public class CMinusLocalLineMarkerProvider extends RelatedItemLineMarkerProvider
             final List<CMinusFunDeclaration> functionReferences = CMinusUtil.findLocalFunctionReferences(file, possibleReferences);
             if (functionReferences.size() > 0) {
                 NavigationGutterIconBuilder<PsiElement> builder =
-                        NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                        NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                                 .setTargets(functionReferences)
                                 .setTooltipText("Navigate to CMinus language function reference");
 
@@ -51,7 +51,7 @@ public class CMinusLocalLineMarkerProvider extends RelatedItemLineMarkerProvider
             final List<CMinusVarDeclaration> variableReferences = CMinusUtil.findLocalVariableReferences(file, possibleReferences);
             if (variableReferences.size() > 0) {
                 NavigationGutterIconBuilder<PsiElement> builder =
-                        NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                        NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                                 .setTargets(variableReferences)
                                 .setTooltipText("Navigate to CMinus language variable reference");
 
@@ -61,7 +61,7 @@ public class CMinusLocalLineMarkerProvider extends RelatedItemLineMarkerProvider
             final List<CMinusConstDeclaration> constReferences = CMinusUtil.findLocalConstantReferences(file, possibleReferences);
             if (constReferences.size() > 0) {
                 NavigationGutterIconBuilder<PsiElement> builder =
-                        NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                        NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                                 .setTargets(constReferences)
                                 .setTooltipText("Navigate to CMinus language constant reference");
 
@@ -71,7 +71,7 @@ public class CMinusLocalLineMarkerProvider extends RelatedItemLineMarkerProvider
             final List<CMinusParam> paramReference = CMinusUtil.findLocalParamReferences(file, possibleReferences);
             if (paramReference.size() > 0) {
                 NavigationGutterIconBuilder<PsiElement> builder =
-                        NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                        NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                                 .setTargets(paramReference)
                                 .setTooltipText("Navigate to CMinus language parameter reference");
 

@@ -38,7 +38,7 @@ public class CMinusJavaLineMarkerProvider extends RelatedItemLineMarkerProvider 
         final List<CMinusFunDeclaration> functionReferences = CMinusUtil.findFunctionReferences(project, possibleReferences);
         if (functionReferences.size() > 0) {
             NavigationGutterIconBuilder<PsiElement> builder =
-                    NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                    NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                             .setTargets(functionReferences)
                             .setTooltipText("Navigate to CMinus language function reference");
             result.add(builder.createLineMarkerInfo(element));
@@ -47,7 +47,7 @@ public class CMinusJavaLineMarkerProvider extends RelatedItemLineMarkerProvider 
         final List<CMinusVarDeclaration> variableReferences = CMinusUtil.findVariableReferences(project, possibleReferences);
         if (variableReferences.size() > 0) {
             NavigationGutterIconBuilder<PsiElement> builder =
-                    NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                    NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                             .setTargets(variableReferences)
                             .setTooltipText("Navigate to CMinus language variable reference");
             result.add(builder.createLineMarkerInfo(element));
@@ -56,7 +56,7 @@ public class CMinusJavaLineMarkerProvider extends RelatedItemLineMarkerProvider 
         final List<CMinusConstDeclaration> constReferences = CMinusUtil.findConstantReferences(project, possibleReferences);
         if(constReferences.size() > 0){
             NavigationGutterIconBuilder<PsiElement> builder =
-                    NavigationGutterIconBuilder.create(CMinusIcons.FILE)
+                    NavigationGutterIconBuilder.create(CMinusIcons.USAGE)
                             .setTargets(constReferences)
                             .setTooltipText("Navigate to CMinus language constant reference");
             result.add(builder.createLineMarkerInfo(element));

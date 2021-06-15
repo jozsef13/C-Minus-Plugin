@@ -38,6 +38,8 @@
         <lang.commenter language="CMinus" implementationClass="com.plugin.project.language.CMinusCommenter" />
         <lang.foldingBuilder language="JAVA" implementationClass="com.plugin.project.language.CMinusFoldingBuilder" />
         <quoteHandler className="com.plugin.project.language.CMinusQuoteHandler" fileType="CMinus" />
+        <defaultLiveTemplates file="/liveTemplates/CMinus.xml" />
+        <liveTemplateContext implementation="com.plugin.project.language.CMinusContext" />
     </extensions>
 
 </idea-plugin>

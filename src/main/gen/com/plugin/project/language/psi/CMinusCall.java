@@ -5,6 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiReference;
 
 public interface CMinusCall extends PsiElement {
 
@@ -17,5 +18,9 @@ public interface CMinusCall extends PsiElement {
   String getCallId();
 
   ItemPresentation getPresentation();
+
+  PsiReference getReference();
+
+  PsiElement setName(String newName);
 
 }

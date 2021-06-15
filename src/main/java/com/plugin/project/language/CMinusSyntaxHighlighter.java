@@ -76,8 +76,7 @@ public class CMinusSyntaxHighlighter extends SyntaxHighlighterBase {
                 tokenType.equals(CMinusTypes.WRITE)) {
             return SEPARATOR_KEYS;
         } else if (tokenType.equals(CMinusTypes.INT) || tokenType.equals(CMinusTypes.VOID) ||
-                tokenType.equals(CMinusTypes.FLOAT) || tokenType.equals(CMinusTypes.DOUBLE) ||
-                tokenType.equals(CMinusTypes.CHAR) || tokenType.equals(CMinusTypes.BOOL) ||
+                tokenType.equals(CMinusTypes.STRING) || tokenType.equals(CMinusTypes.BOOL) ||
                 tokenType.equals(CMinusTypes.RETURN) || tokenType.equals(CMinusTypes.IF) ||
                 tokenType.equals(CMinusTypes.WHILE) || tokenType.equals(CMinusTypes.CIN) || tokenType.equals(CMinusTypes.COUT) ||
                 tokenType.equals(CMinusTypes.ELSE) || tokenType.equals(CMinusTypes.CONST)) {
