@@ -40,13 +40,13 @@
       <option name="CMINUS" value="true"/>
     </context>
   </template>
-  <template name="read" value="cin &lt;&lt; $VARIABLE$;$END$" description="SDK: Read statement" toReformat="false" toShortenFQNames="true">
+  <template name="read" value="cin &gt;&gt; $VARIABLE$;$END$" description="SDK: Read statement" toReformat="false" toShortenFQNames="true">
     <variable name="VARIABLE" expression="complete()" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="CMINUS" value="true"/>
     </context>
   </template>
-  <template name="write" value="cout &gt;&gt; $EXPRESSION$;$END$" description="SDK: Write statement" toReformat="false" toShortenFQNames="true">
+  <template name="write" value="cout &lt;&lt; $EXPRESSION$;$END$" description="SDK: Write statement" toReformat="false" toShortenFQNames="true">
     <variable name="EXPRESSION" expression="complete()" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="CMINUS" value="true"/>
@@ -64,7 +64,6 @@
     </context>
   </template>
   <template name="st" value="string$END$" description="SDK: String declaration" toReformat="false" toShortenFQNames="true">
-    <variable name="EXPRESSION" expression="complete()" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="CMINUS" value="true"/>
     </context>

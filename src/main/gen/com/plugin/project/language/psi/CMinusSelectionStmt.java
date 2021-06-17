@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface CMinusSelectionStmt extends PsiElement {
 
   @NotNull
-  CMinusExpression getExpression();
+  CMinusRelExpression getRelExpression();
 
   @NotNull
   List<CMinusStatement> getStatementList();

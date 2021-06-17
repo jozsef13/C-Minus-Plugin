@@ -107,6 +107,10 @@ public class CMinusVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitRelExpression(@NotNull CMinusRelExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitRelOperations(@NotNull CMinusRelOperations o) {
     visitPsiElement(o);
   }
@@ -156,6 +160,10 @@ public class CMinusVisitor extends PsiElementVisitor {
   }
 
   public void visitWriteStatement(@NotNull CMinusWriteStatement o) {
+    visitPsiElement(o);
+  }
+
+  public void visitWriteStatementList(@NotNull CMinusWriteStatementList o) {
     visitPsiElement(o);
   }
 

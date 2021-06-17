@@ -6,7 +6,9 @@
     <description>
         <![CDATA[
       Plugin to add custom language support to an IntelliJ Platform-based IDE. <br>Defines a new language,
-      <i>C- language</i> with support for syntax highlighting, annotations, code completion, and other features.
+      <i>C- language</i> with support for syntax highlighting; annotations; variables, functions, constants, parameters references;
+      line marker provider; find usage support; go to symbol feature; display structure of code; live templates. All these featurea are
+      available for Java and CMinus language.
       <br>
     ]]>
     </description>
@@ -17,27 +19,27 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="CMinus File" implementationClass="com.plugin.project.language.CMinusFileType" fieldName="INSTANCE" language="CMinus" extensions="cmin" />
-        <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.CMinusParserDefinition" />
-        <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusSyntaxHighlighterFactory" />
-        <colorSettingsPage implementation="com.plugin.project.language.CMinusColorSettingsPage" />
-        <annotator language="JAVA" implementationClass="com.plugin.project.language.CMinusAnnotator" />
-        <annotator language="CMinus" implementationClass="com.plugin.project.language.CMinusAnnotator" />
-        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.CMinusJavaLineMarkerProvider"/>
-        <codeInsight.lineMarkerProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusLocalLineMarkerProvider"/>
-        <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.CMinusCompletionContributor"/>
-        <psi.referenceContributor implementation="com.plugin.project.language.CMinusReferenceContributor" />
-        <lang.braceMatcher language="CMinus" implementationClass="com.plugin.project.language.CMinusBraceMatcher" />
-        <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.CMinusRefactoringSupportProvider" />
-        <lang.findUsagesProvider language="CMinus" implementationClass="com.plugin.project.language.CMinusFindUsagesProvider" />
-        <gotoSymbolContributor implementation="com.plugin.project.language.CMinusChooseByNameContributor" />
-        <lang.psiStructureViewFactory language="CMinus" implementationClass="com.plugin.project.language.CMinusStructureViewFactory" />
-        <lang.formatter language="CMinus" implementationClass="com.plugin.project.language.CMinusFormattingModelBuilder" />
-        <codeStyleSettingsProvider implementation="com.plugin.project.language.CMinusCodeStyleSettingsProvider" />
+        <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.parser.CMinusParserDefinition" />
+        <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.highlighter.CMinusSyntaxHighlighterFactory" />
+        <colorSettingsPage implementation="com.plugin.project.language.settings.CMinusColorSettingsPage" />
+        <annotator language="JAVA" implementationClass="com.plugin.project.language.reference.CMinusAnnotator" />
+        <annotator language="CMinus" implementationClass="com.plugin.project.language.reference.CMinusAnnotator" />
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.reference.CMinusJavaLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="CMinus" implementationClass="com.plugin.project.language.reference.CMinusLocalLineMarkerProvider"/>
+        <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.settings.CMinusCompletionContributor"/>
+        <psi.referenceContributor implementation="com.plugin.project.language.reference.CMinusReferenceContributor" />
+        <lang.braceMatcher language="CMinus" implementationClass="com.plugin.project.language.settings.CMinusBraceMatcher" />
+        <lang.refactoringSupport language="CMinus" implementationClass="com.plugin.project.language.reference.CMinusRefactoringSupportProvider" />
+        <lang.findUsagesProvider language="CMinus" implementationClass="com.plugin.project.language.reference.CMinusFindUsagesProvider" />
+        <gotoSymbolContributor implementation="com.plugin.project.language.psi.CMinusChooseByNameContributor" />
+        <lang.psiStructureViewFactory language="CMinus" implementationClass="com.plugin.project.language.structure.CMinusStructureViewFactory" />
+        <lang.formatter language="CMinus" implementationClass="com.plugin.project.language.formatting.CMinusFormattingModelBuilder" />
+        <codeStyleSettingsProvider implementation="com.plugin.project.language.settings.CMinusCodeStyleSettingsProvider" />
         <langCodeStyleSettingsProvider
-                implementation="com.plugin.project.language.CMinusLanguageCodeStyleSettingsProvider" />
-        <lang.commenter language="CMinus" implementationClass="com.plugin.project.language.CMinusCommenter" />
-        <lang.foldingBuilder language="JAVA" implementationClass="com.plugin.project.language.CMinusFoldingBuilder" />
-        <quoteHandler className="com.plugin.project.language.CMinusQuoteHandler" fileType="CMinus" />
+                implementation="com.plugin.project.language.settings.CMinusLanguageCodeStyleSettingsProvider" />
+        <lang.commenter language="CMinus" implementationClass="com.plugin.project.language.settings.CMinusCommenter" />
+        <lang.foldingBuilder language="JAVA" implementationClass="com.plugin.project.language.settings.CMinusFoldingBuilder" />
+        <quoteHandler className="com.plugin.project.language.settings.CMinusQuoteHandler" fileType="CMinus" />
         <defaultLiveTemplates file="/liveTemplates/CMinus.xml" />
         <liveTemplateContext implementation="com.plugin.project.language.CMinusContext" />
     </extensions>

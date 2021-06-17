@@ -29,8 +29,8 @@ public class CMinusWriteStatementImpl extends ASTWrapperPsiElement implements CM
 
   @Override
   @NotNull
-  public CMinusExpression getExpression() {
-    return findNotNullChildByClass(CMinusExpression.class);
+  public CMinusWriteStatementList getWriteStatementList() {
+    return findNotNullChildByClass(CMinusWriteStatementList.class);
   }
 
 }

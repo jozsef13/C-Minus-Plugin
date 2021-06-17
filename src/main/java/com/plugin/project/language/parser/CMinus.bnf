@@ -1,0 +1,149 @@
+{
+parserClass = "com.plugin.project.language.parser.CMinusParser"
+
+extends = "com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+tokens =
+[
+    COMMENT = 'regexp:(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|(//.*)'
+    WHITE_SPACE = 'regexp:\s+'
+    STRING_LITERAL = 'regexp:\"([^\\\"]|\\.)*\"'
+    QUOTE = 'regexp:\"'
+    DOUBLE_QUOTES = 'regexp:\"\"'
+
+    //keywords
+    ELSE = 'else'
+    IF = 'if'
+    INT = 'int'
+    RETURN = 'return'
+    VOID = 'void'
+    WHILE = 'while'
+    TRUE = 'true'
+    FALSE = 'false'
+    BOOL = 'bool'
+    STRING = 'string'
+    CONST = 'const'
+    CIN = 'cin'
+    COUT = 'cout'
+    READ = '>>'
+    WRITE = '<<'
+    OR = 'or'
+    AND = 'and'
+
+    SMALLER = '<'
+    SMALLER_OR_EQUAL = '<='
+    GREATER = '>'
+    GREATER_OR_EQUAL = '>='
+    EQUAL = '=='
+    NOT_EQUAL = '!='
+    ADD = '+'
+    SUBSTRACT = '-'
+    MULTIPLY = '*'
+    DIVIDE = '/'
+    ASSIGN = '='
+    NOT = '!'
+    END_OF_INSTRUCTION = ';'
+    COMMA = ','
+    NUM = 'regexp:\d+'
+    ID = 'regexp:\w+'
+    LEFT_PARANTHESIS = '('
+    RIGHT_PARANTHESIS = ')'
+    LEFT_BRACKET = '['
+    RIGHT_BRACKET = ']'
+    LEFT_BRACE = '{'
+    RIGHT_BRACE = '}'
+]
+
+psiClassPrefix = "CMinus"
+psiImplClassSuffix = "Impl"
+psiPackage = "com.plugin.project.language.psi"
+psiImplPackage = "com.plugin.project.language.psi.impl"
+
+elementTypeHolderClass = "com.plugin.project.language.psi.CMinusTypes"
+elementTypeClass = "com.plugin.project.language.psi.CMinusElementType"
+tokenTypeClass = "com.plugin.project.language.psi.CMinusTokenType"
+
+psiImplUtilClass="com.plugin.project.language.psi.impl.CMinusPsiImplUtil"
+}
+
+CMinusFile ::= program*
+
+program ::= (declaration_list | CRLF | COMMENT)
+
+declaration_list ::= declaration declaration_list1?
+
+declaration_list1 ::= declaration declaration_list1? | /*epsilon*/
+
+declaration ::= var_declaration | fun_declaration | const_declaration
+
+const_declaration ::= CONST ID ASSIGN NUM END_OF_INSTRUCTION | CONST ID ASSIGN STRING_LITERAL END_OF_INSTRUCTION | CONST ID ASSIGN TRUE END_OF_INSTRUCTION | CONST ID ASSIGN FALSE END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getConstDeclId getName setName getNameIdentifier getPresentation getConstantValue]}
+
+var_declaration ::= type_specifier ID END_OF_INSTRUCTION | type_specifier ID LEFT_BRACKET NUM RIGHT_BRACKET END_OF_INSTRUCTION {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getVarDeclId getName setName getNameIdentifier getPresentation]}
+
+type_specifier ::= INT | VOID | STRING | BOOL
+
+fun_declaration ::= type_specifier ID LEFT_PARANTHESIS params? RIGHT_PARANTHESIS compound_stmt {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getFunDeclId getName setName getNameIdentifier getPresentation]}
+
+params ::= param_list | VOID
+
+param_list ::= param param_list1?
+
+param_list1 ::= COMMA param param_list1? | /*epsilon*/
+
+param ::= type_specifier ID | type_specifier ID LEFT_BRACKET RIGHT_BRACKET {mixin = "CMinusNamedElementImpl" implements = "CMinusNamedElement" methods=[getParamId getName setName getNameIdentifier getPresentation]}
+
+compound_stmt ::= LEFT_BRACE local_declarations? statement_list? RIGHT_BRACE
+
+local_declarations ::= var_declaration local_declarations? | /*epsilon*/
+
+statement_list ::= statement_list1
+
+statement_list1 ::= statement statement_list1? | /*epsilon*/
+
+statement ::= expression_stmt | compound_stmt | selection_stmt | iteration_stmt | return_stmt | read_statement | write_statement | COMMENT
+
+expression_stmt ::= expression END_OF_INSTRUCTION | END_OF_INSTRUCTION
+
+selection_stmt ::= IF LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement ELSE statement | IF LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement
+
+iteration_stmt ::= WHILE LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement
+
+return_stmt ::= RETURN END_OF_INSTRUCTION | RETURN simple_expression END_OF_INSTRUCTION
+
+rel_expression ::= NOT? simple_expression OR rel_expression | NOT? simple_expression AND rel_expression | NOT? simple_expression
+
+expression ::= var ASSIGN expression | simple_expression
+
+read_statement ::= CIN READ var END_OF_INSTRUCTION
+
+write_statement ::= COUT write_statement_list END_OF_INSTRUCTION
+
+write_statement_list ::= WRITE expression write_statement_list?
+
+var ::= ID | ID LEFT_BRACKET expression RIGHT_BRACKET {methods=[getVarId getPresentation getReference setName]}
+
+simple_expression ::= additive_expression rel_operations additive_expression | additive_expression
+
+rel_operations ::= SMALLER_OR_EQUAL | SMALLER | GREATER | GREATER_OR_EQUAL | EQUAL | NOT_EQUAL
+
+additive_expression ::= term additive_expression1?
+
+additive_expression1 ::= add_operation term additive_expression1? | /*epsilon*/
+
+add_operation ::= ADD | SUBSTRACT
+
+term ::= factor term1?
+
+term1 ::= mul_operation factor term1? | /*epsilon*/
+
+mul_operation ::= MULTIPLY | DIVIDE
+
+factor ::= call | NUM | STRING_LITERAL | TRUE | FALSE | LEFT_PARANTHESIS expression RIGHT_PARANTHESIS | var
+
+call ::= ID LEFT_PARANTHESIS args? RIGHT_PARANTHESIS {methods=[getCallId getPresentation getReference setName]}
+
+args ::= arg_list | /*epsilon*/
+
+arg_list ::= expression arg_list1?
+
+arg_list1 ::= COMMA expression arg_list1? | /*epsilon*/

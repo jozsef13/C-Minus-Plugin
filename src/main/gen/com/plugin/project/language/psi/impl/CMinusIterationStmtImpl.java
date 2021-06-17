@@ -29,8 +29,8 @@ public class CMinusIterationStmtImpl extends ASTWrapperPsiElement implements CMi
 
   @Override
   @NotNull
-  public CMinusExpression getExpression() {
-    return findNotNullChildByClass(CMinusExpression.class);
+  public CMinusRelExpression getRelExpression() {
+    return findNotNullChildByClass(CMinusRelExpression.class);
   }
 
   @Override

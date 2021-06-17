@@ -223,7 +223,7 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // CONST ID ASSIGN NUM END_OF_INSTRUCTION | CONST ID ASSIGN STRING_LITERAL END_OF_INSTRUCTION
+  // CONST ID ASSIGN NUM END_OF_INSTRUCTION | CONST ID ASSIGN STRING_LITERAL END_OF_INSTRUCTION | CONST ID ASSIGN TRUE END_OF_INSTRUCTION | CONST ID ASSIGN FALSE END_OF_INSTRUCTION
   public static boolean const_declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "const_declaration")) return false;
     if (!nextTokenIs(b, CONST)) return false;
@@ -231,6 +231,8 @@ public class CMinusParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = parseTokens(b, 0, CONST, ID, ASSIGN, NUM, END_OF_INSTRUCTION);
     if (!r) r = parseTokens(b, 0, CONST, ID, ASSIGN, STRING_LITERAL, END_OF_INSTRUCTION);
+    if (!r) r = parseTokens(b, 0, CONST, ID, ASSIGN, TRUE, END_OF_INSTRUCTION);
+    if (!r) r = parseTokens(b, 0, CONST, ID, ASSIGN, FALSE, END_OF_INSTRUCTION);
     exit_section_(b, m, CONST_DECLARATION, r);
     return r;
   }
@@ -298,15 +300,13 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // var ASSIGN expression | NOT? simple_expression AND expression | NOT? simple_expression OR expression | NOT? simple_expression
+  // var ASSIGN expression | simple_expression
   public static boolean expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
     r = expression_0(b, l + 1);
-    if (!r) r = expression_1(b, l + 1);
-    if (!r) r = expression_2(b, l + 1);
-    if (!r) r = expression_3(b, l + 1);
+    if (!r) r = simple_expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -321,64 +321,6 @@ public class CMinusParser implements PsiParser, LightPsiParser {
     r = r && expression(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
-  }
-
-  // NOT? simple_expression AND expression
-  private static boolean expression_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = expression_1_0(b, l + 1);
-    r = r && simple_expression(b, l + 1);
-    r = r && consumeToken(b, AND);
-    r = r && expression(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // NOT?
-  private static boolean expression_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_1_0")) return false;
-    consumeToken(b, NOT);
-    return true;
-  }
-
-  // NOT? simple_expression OR expression
-  private static boolean expression_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = expression_2_0(b, l + 1);
-    r = r && simple_expression(b, l + 1);
-    r = r && consumeToken(b, OR);
-    r = r && expression(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // NOT?
-  private static boolean expression_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_2_0")) return false;
-    consumeToken(b, NOT);
-    return true;
-  }
-
-  // NOT? simple_expression
-  private static boolean expression_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_3")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = expression_3_0(b, l + 1);
-    r = r && simple_expression(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // NOT?
-  private static boolean expression_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_3_0")) return false;
-    consumeToken(b, NOT);
-    return true;
   }
 
   /* ********************************************************** */
@@ -456,14 +398,14 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // WHILE LEFT_PARANTHESIS expression RIGHT_PARANTHESIS statement
+  // WHILE LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement
   public static boolean iteration_stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "iteration_stmt")) return false;
     if (!nextTokenIs(b, WHILE)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, WHILE, LEFT_PARANTHESIS);
-    r = r && expression(b, l + 1);
+    r = r && rel_expression(b, l + 1);
     r = r && consumeToken(b, RIGHT_PARANTHESIS);
     r = r && statement(b, l + 1);
     exit_section_(b, m, ITERATION_STMT, r);
@@ -637,6 +579,77 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // NOT? simple_expression OR rel_expression | NOT? simple_expression AND rel_expression | NOT? simple_expression
+  public static boolean rel_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, REL_EXPRESSION, "<rel expression>");
+    r = rel_expression_0(b, l + 1);
+    if (!r) r = rel_expression_1(b, l + 1);
+    if (!r) r = rel_expression_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // NOT? simple_expression OR rel_expression
+  private static boolean rel_expression_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = rel_expression_0_0(b, l + 1);
+    r = r && simple_expression(b, l + 1);
+    r = r && consumeToken(b, OR);
+    r = r && rel_expression(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NOT?
+  private static boolean rel_expression_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression_0_0")) return false;
+    consumeToken(b, NOT);
+    return true;
+  }
+
+  // NOT? simple_expression AND rel_expression
+  private static boolean rel_expression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = rel_expression_1_0(b, l + 1);
+    r = r && simple_expression(b, l + 1);
+    r = r && consumeToken(b, AND);
+    r = r && rel_expression(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NOT?
+  private static boolean rel_expression_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression_1_0")) return false;
+    consumeToken(b, NOT);
+    return true;
+  }
+
+  // NOT? simple_expression
+  private static boolean rel_expression_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = rel_expression_2_0(b, l + 1);
+    r = r && simple_expression(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // NOT?
+  private static boolean rel_expression_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rel_expression_2_0")) return false;
+    consumeToken(b, NOT);
+    return true;
+  }
+
+  /* ********************************************************** */
   // SMALLER_OR_EQUAL | SMALLER | GREATER | GREATER_OR_EQUAL | EQUAL | NOT_EQUAL
   public static boolean rel_operations(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "rel_operations")) return false;
@@ -653,7 +666,7 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // RETURN END_OF_INSTRUCTION | RETURN NOT? simple_expression END_OF_INSTRUCTION
+  // RETURN END_OF_INSTRUCTION | RETURN simple_expression END_OF_INSTRUCTION
   public static boolean return_stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "return_stmt")) return false;
     if (!nextTokenIs(b, RETURN)) return false;
@@ -665,28 +678,20 @@ public class CMinusParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // RETURN NOT? simple_expression END_OF_INSTRUCTION
+  // RETURN simple_expression END_OF_INSTRUCTION
   private static boolean return_stmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "return_stmt_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, RETURN);
-    r = r && return_stmt_1_1(b, l + 1);
     r = r && simple_expression(b, l + 1);
     r = r && consumeToken(b, END_OF_INSTRUCTION);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // NOT?
-  private static boolean return_stmt_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "return_stmt_1_1")) return false;
-    consumeToken(b, NOT);
-    return true;
-  }
-
   /* ********************************************************** */
-  // IF LEFT_PARANTHESIS expression RIGHT_PARANTHESIS statement ELSE statement | IF LEFT_PARANTHESIS expression RIGHT_PARANTHESIS statement
+  // IF LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement ELSE statement | IF LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement
   public static boolean selection_stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "selection_stmt")) return false;
     if (!nextTokenIs(b, IF)) return false;
@@ -698,13 +703,13 @@ public class CMinusParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IF LEFT_PARANTHESIS expression RIGHT_PARANTHESIS statement ELSE statement
+  // IF LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement ELSE statement
   private static boolean selection_stmt_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "selection_stmt_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, IF, LEFT_PARANTHESIS);
-    r = r && expression(b, l + 1);
+    r = r && rel_expression(b, l + 1);
     r = r && consumeToken(b, RIGHT_PARANTHESIS);
     r = r && statement(b, l + 1);
     r = r && consumeToken(b, ELSE);
@@ -713,13 +718,13 @@ public class CMinusParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // IF LEFT_PARANTHESIS expression RIGHT_PARANTHESIS statement
+  // IF LEFT_PARANTHESIS rel_expression RIGHT_PARANTHESIS statement
   private static boolean selection_stmt_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "selection_stmt_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, IF, LEFT_PARANTHESIS);
-    r = r && expression(b, l + 1);
+    r = r && rel_expression(b, l + 1);
     r = r && consumeToken(b, RIGHT_PARANTHESIS);
     r = r && statement(b, l + 1);
     exit_section_(b, m, null, r);
@@ -933,17 +938,38 @@ public class CMinusParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // COUT WRITE expression END_OF_INSTRUCTION
+  // COUT write_statement_list END_OF_INSTRUCTION
   public static boolean write_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "write_statement")) return false;
     if (!nextTokenIs(b, COUT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, COUT, WRITE);
-    r = r && expression(b, l + 1);
+    r = consumeToken(b, COUT);
+    r = r && write_statement_list(b, l + 1);
     r = r && consumeToken(b, END_OF_INSTRUCTION);
     exit_section_(b, m, WRITE_STATEMENT, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // WRITE expression write_statement_list?
+  public static boolean write_statement_list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "write_statement_list")) return false;
+    if (!nextTokenIs(b, WRITE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, WRITE);
+    r = r && expression(b, l + 1);
+    r = r && write_statement_list_2(b, l + 1);
+    exit_section_(b, m, WRITE_STATEMENT_LIST, r);
+    return r;
+  }
+
+  // write_statement_list?
+  private static boolean write_statement_list_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "write_statement_list_2")) return false;
+    write_statement_list(b, l + 1);
+    return true;
   }
 
 }

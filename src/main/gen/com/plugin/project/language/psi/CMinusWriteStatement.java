@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface CMinusWriteStatement extends PsiElement {
 
   @NotNull
-  CMinusExpression getExpression();
+  CMinusWriteStatementList getWriteStatementList();
 
 }

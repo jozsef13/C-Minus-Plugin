@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface CMinusIterationStmt extends PsiElement {
 
   @NotNull
-  CMinusExpression getExpression();
+  CMinusRelExpression getRelExpression();
 
   @NotNull
   CMinusStatement getStatement();

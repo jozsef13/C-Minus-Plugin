@@ -6,7 +6,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.plugin.project.language.CMinusIcons;
-import com.plugin.project.language.CMinusLocalReference;
+import com.plugin.project.language.reference.CMinusLocalReference;
 import com.plugin.project.language.psi.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
@@ -146,6 +146,10 @@ public class CMinusPsiImplUtil {
                 return numNode.getText();
             } else if (stringLiteralNode != null) {
                 return stringLiteralNode.getText();
+            } else if(element.getNode().findChildByType(CMinusTypes.TRUE) != null){
+                return "true";
+            } else if(element.getNode().findChildByType(CMinusTypes.FALSE) != null){
+                return "false";
             }
         }
 

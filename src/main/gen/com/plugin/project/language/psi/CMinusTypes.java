@@ -33,6 +33,7 @@ public interface CMinusTypes {
   IElementType PARAM_LIST_1 = new CMinusElementType("PARAM_LIST_1");
   IElementType PROGRAM = new CMinusElementType("PROGRAM");
   IElementType READ_STATEMENT = new CMinusElementType("READ_STATEMENT");
+  IElementType REL_EXPRESSION = new CMinusElementType("REL_EXPRESSION");
   IElementType REL_OPERATIONS = new CMinusElementType("REL_OPERATIONS");
   IElementType RETURN_STMT = new CMinusElementType("RETURN_STMT");
   IElementType SELECTION_STMT = new CMinusElementType("SELECTION_STMT");
@@ -46,10 +47,11 @@ public interface CMinusTypes {
   IElementType VAR = new CMinusElementType("VAR");
   IElementType VAR_DECLARATION = new CMinusElementType("VAR_DECLARATION");
   IElementType WRITE_STATEMENT = new CMinusElementType("WRITE_STATEMENT");
+  IElementType WRITE_STATEMENT_LIST = new CMinusElementType("WRITE_STATEMENT_LIST");
 
   IElementType ADD = new CMinusTokenType("+");
   IElementType ADDITIVE_EXPRESSION1_1_0 = new CMinusTokenType("additive_expression1_1_0");
-  IElementType AND = new CMinusTokenType("&&");
+  IElementType AND = new CMinusTokenType("and");
   IElementType ARGS_1_0 = new CMinusTokenType("args_1_0");
   IElementType ARG_LIST1_1_0 = new CMinusTokenType("arg_list1_1_0");
   IElementType ASSIGN = new CMinusTokenType("=");
@@ -62,12 +64,11 @@ public interface CMinusTypes {
   IElementType CRLF = new CMinusTokenType("CRLF");
   IElementType DECLARATION_LIST1_1_0 = new CMinusTokenType("declaration_list1_1_0");
   IElementType DIVIDE = new CMinusTokenType("/");
-  IElementType DOUBLE = new CMinusTokenType("double");
+  IElementType DOUBLE_QUOTES = new CMinusTokenType("DOUBLE_QUOTES");
   IElementType ELSE = new CMinusTokenType("else");
   IElementType END_OF_INSTRUCTION = new CMinusTokenType(";");
   IElementType EQUAL = new CMinusTokenType("==");
   IElementType FALSE = new CMinusTokenType("false");
-  IElementType FLOAT = new CMinusTokenType("float");
   IElementType GREATER = new CMinusTokenType(">");
   IElementType GREATER_OR_EQUAL = new CMinusTokenType(">=");
   IElementType ID = new CMinusTokenType("ID");
@@ -81,9 +82,10 @@ public interface CMinusTypes {
   IElementType NOT = new CMinusTokenType("!");
   IElementType NOT_EQUAL = new CMinusTokenType("!=");
   IElementType NUM = new CMinusTokenType("NUM");
-  IElementType OR = new CMinusTokenType("||");
+  IElementType OR = new CMinusTokenType("or");
   IElementType PARAM_LIST1_1_0 = new CMinusTokenType("param_list1_1_0");
-  IElementType READ = new CMinusTokenType("<<");
+  IElementType QUOTE = new CMinusTokenType("QUOTE");
+  IElementType READ = new CMinusTokenType(">>");
   IElementType RETURN = new CMinusTokenType("return");
   IElementType RIGHT_BRACE = new CMinusTokenType("}");
   IElementType RIGHT_BRACKET = new CMinusTokenType("]");
@@ -98,7 +100,7 @@ public interface CMinusTypes {
   IElementType TRUE = new CMinusTokenType("true");
   IElementType VOID = new CMinusTokenType("void");
   IElementType WHILE = new CMinusTokenType("while");
-  IElementType WRITE = new CMinusTokenType(">>");
+  IElementType WRITE = new CMinusTokenType("<<");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -178,6 +180,9 @@ public interface CMinusTypes {
       else if (type == READ_STATEMENT) {
         return new CMinusReadStatementImpl(node);
       }
+      else if (type == REL_EXPRESSION) {
+        return new CMinusRelExpressionImpl(node);
+      }
       else if (type == REL_OPERATIONS) {
         return new CMinusRelOperationsImpl(node);
       }
@@ -216,6 +221,9 @@ public interface CMinusTypes {
       }
       else if (type == WRITE_STATEMENT) {
         return new CMinusWriteStatementImpl(node);
+      }
+      else if (type == WRITE_STATEMENT_LIST) {
+        return new CMinusWriteStatementListImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
