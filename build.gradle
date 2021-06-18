@@ -19,7 +19,7 @@ dependencies {
 }
 
 intellij {
-    version = '2020.2.4'
+    version = '2021.1.2'
     plugins = ['com.intellij.java']
 }
 
@@ -30,5 +30,4 @@ buildSearchableOptions {
 patchPluginXml {
     version = project.version
     sinceBuild = '202'
-    untilBuild = '203.*'
 }

@@ -1,0 +1,88 @@
+const PI = 3;
+
+int calculatePower(int base, int powerRaised) {
+    if (powerRaised != 0) {
+        return base* calculatePower(base, powerRaised- 1);
+    }
+    else {
+        return 1;
+    }
+}
+
+bool checkPrimeNumber(int number) {
+    bool isPrime;
+    int j;
+    j = 2;
+    isPrime = true;
+//0 and 1 are not prime numbers
+    if (number == 0 or number == 1){
+        isPrime = false;
+    }
+    else {
+        while (j <= number/ 2){
+            if (number/ j == 0){
+                isPrime = false;
+            }
+            j = j+ 1;
+        }
+    }
+
+    return isPrime;
+}
+
+int main(void) {
+    int mainBase;
+    int mainPowerRaised;
+    int result;
+
+    int n1;
+    int n2;
+    bool flag;
+    int i;
+
+    int rad;
+    int vol;
+
+    cout << "Enter base number: ";
+    cin >> mainBase;
+
+    cout << "Enter power number(positive integer): ";
+    cin >> mainPowerRaised;
+
+    result = calculatePower(mainBase, mainPowerRaised);
+    cout << mainBase << "^" << mainPowerRaised << "=" << result;
+
+    cout << "Enter 2 positive integers: ";
+    cin >> n1;
+    cin >> n2;
+
+//swapping n1 and n2 if n1 is greater than n2
+    if (n1 > n2){
+        n2 = n1+ n2;
+        n1 = n2- n1;
+        n2 = n2- n1;
+    }
+
+    cout << "Prime numbers between " << n1 << " and " << n2 << " are: ";
+    i = n1+ 1;
+    while (i < n2){
+        flag = checkPrimeNumber(i);
+        if (flag == true){
+            cout << i << " ";
+        }
+        i = i + 1;
+    }
+
+    cout << "Enter Radius of Sphere: ";
+    cin >> rad;
+    vol = calculateVolume(rad);
+
+    cout << "Volume of Sphere =" << vol;
+
+
+    return 0;
+}
+
+int calculateVolume(int radius){
+    return 4* PI* calculatePower(radius, 3)/ 3;
+}
