@@ -21,7 +21,7 @@ The language that I chose to build the editor plugin for is called C-, also know
 ## Project Structure
 The project follows the standard Gradle directory layout strcture:
 
-...
+```
 C-Minus-Plugin
 |- build.gradle
 |- gradle
@@ -40,4 +40,4 @@ C-Minus-Plugin
 |- gradlew
 |- gradlew.bat
 |- settings.gradle
-...
+```
