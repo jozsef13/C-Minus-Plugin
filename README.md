@@ -41,3 +41,6 @@ C-Minus-Plugin
 |- gradlew.bat
 |- settings.gradle
 ```
+## Code Example
+Code examples can be found under ```src/test``` directory, where 2 files are present: ```Test.cmin``` and ```Expression.cmin```. 
+
