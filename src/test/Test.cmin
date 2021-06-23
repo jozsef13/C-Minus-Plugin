@@ -1,8 +1,8 @@
 const PI = 3;
 
-int calculatePower(int base, int powerRaised) {
+int calculatePowerN(int base, int powerRaised) {
     if (powerRaised != 0) {
-        return base* calculatePower(base, powerRaised- 1);
+        return base* calculatePowerN(base, powerRaised- 1);
     }
     else {
         return 1;
@@ -49,7 +49,7 @@ int main(void) {
     cout << "Enter power number(positive integer): ";
     cin >> mainPowerRaised;
 
-    result = calculatePower(mainBase, mainPowerRaised);
+    result = calculatePowerN(mainBase, mainPowerRaised);
     cout << mainBase << "^" << mainPowerRaised << "=" << result;
 
     cout << "Enter 2 positive integers: ";
@@ -84,5 +84,5 @@ int main(void) {
 }
 
 int calculateVolume(int radius){
-    return 4* PI* calculatePower(radius, 3)/ 3;
+    return 4* PI* calculatePowerN(radius, 3)/ 3;
 }

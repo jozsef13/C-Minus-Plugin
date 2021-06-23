@@ -78,25 +78,29 @@ public class CMinusLocalReference extends PsiReferenceBase<PsiElement> implement
         for (final PsiElement reference : references) {
             if (reference instanceof CMinusFunDeclaration) {
                 if (((CMinusFunDeclaration) reference).getFunDeclId() != null && ((CMinusFunDeclaration) reference).getFunDeclId().length() > 0) {
-                    variants.add(LookupElementBuilder.create(((CMinusFunDeclaration) reference).getFunDeclId()).withIcon(CMinusIcons.USAGE).withTypeText(reference.getContainingFile().getName() + " - function"));
+                    variants.add(LookupElementBuilder.create(((CMinusFunDeclaration) reference).getFunDeclId()).withIcon(CMinusIcons.USAGE).
+                            withTypeText(reference.getContainingFile().getName() + " - function"));
                 }
             } else if (reference instanceof CMinusVarDeclaration) {
                 if (((CMinusVarDeclaration) reference).getVarDeclId() != null && ((CMinusVarDeclaration) reference).getVarDeclId().length() > 0) {
                     if(myElement instanceof CMinusVar){
                         if(reference.getParent() instanceof CMinusDeclaration){
-                            variants.add(LookupElementBuilder.create(((CMinusVarDeclaration) reference).getVarDeclId()).withIcon(CMinusIcons.USAGE).withTypeText(reference.getContainingFile().getName() + " - variable"));
+                            variants.add(LookupElementBuilder.create(((CMinusVarDeclaration) reference).getVarDeclId()).withIcon(CMinusIcons.USAGE).
+                                    withTypeText(reference.getContainingFile().getName() + " - variable"));
                         } else {
                             CMinusFunDeclaration myElementParent = PsiTreeUtil.getParentOfType(myElement, CMinusFunDeclaration.class);
                             CMinusFunDeclaration referenceParent = PsiTreeUtil.getParentOfType(reference, CMinusFunDeclaration.class);
                             if (myElementParent.equals(referenceParent)) {
-                                variants.add(LookupElementBuilder.create(((CMinusVarDeclaration) reference).getVarDeclId()).withIcon(CMinusIcons.USAGE).withTypeText(reference.getContainingFile().getName() + " - variable"));
+                                variants.add(LookupElementBuilder.create(((CMinusVarDeclaration) reference).getVarDeclId()).withIcon(CMinusIcons.USAGE).
+                                        withTypeText(reference.getContainingFile().getName() + " - variable"));
                             }
                         }
                     }
                 }
             } else if (reference instanceof CMinusConstDeclaration) {
                 if (((CMinusConstDeclaration) reference).getConstDeclId() != null && ((CMinusConstDeclaration) reference).getConstDeclId().length() > 0) {
-                    variants.add(LookupElementBuilder.create(((CMinusConstDeclaration) reference).getConstDeclId()).withIcon(CMinusIcons.USAGE).withTypeText(reference.getContainingFile().getName() + " - constant"));
+                    variants.add(LookupElementBuilder.create(((CMinusConstDeclaration) reference).getConstDeclId()).withIcon(CMinusIcons.USAGE).
+                            withTypeText(reference.getContainingFile().getName() + " - constant"));
                 }
             } else if (reference instanceof CMinusParam) {
                 if (((CMinusParam) reference).getParamId() != null && ((CMinusParam) reference).getParamId().length() > 0) {
@@ -104,7 +108,8 @@ public class CMinusLocalReference extends PsiReferenceBase<PsiElement> implement
                         CMinusFunDeclaration myElementParent = PsiTreeUtil.getParentOfType(myElement, CMinusFunDeclaration.class);
                         CMinusFunDeclaration referenceParent = PsiTreeUtil.getParentOfType(reference, CMinusFunDeclaration.class);
                         if (myElementParent.equals(referenceParent)) {
-                            variants.add(LookupElementBuilder.create(((CMinusParam) reference).getParamId()).withIcon(CMinusIcons.USAGE).withTypeText(reference.getContainingFile().getName() + " - parameter"));
+                            variants.add(LookupElementBuilder.create(((CMinusParam) reference).getParamId()).withIcon(CMinusIcons.USAGE).
+                                    withTypeText(reference.getContainingFile().getName() + " - parameter"));
                         }
                     }
                 }

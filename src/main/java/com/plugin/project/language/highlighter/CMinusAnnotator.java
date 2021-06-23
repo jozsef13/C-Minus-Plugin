@@ -1,4 +1,4 @@
-package com.plugin.project.language.reference;
+package com.plugin.project.language.highlighter;
 
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.lang.annotation.AnnotationHolder;
@@ -65,14 +65,18 @@ public class CMinusAnnotator implements Annotator {
             } else if (element instanceof CMinusConstDeclaration) {
                 key = ((CMinusConstDeclaration) element).getConstDeclId();
                 keyRange = new TextRange(((CMinusConstDeclaration) element).getId().getTextRange().getStartOffset(), ((CMinusConstDeclaration) element).getId().getTextRange().getEndOffset());
+            } else if(element instanceof CMinusParam){
+                key = ((CMinusParam) element).getParamId();
+                keyRange = new TextRange(((CMinusParam) element).getId().getTextRange().getStartOffset(), ((CMinusParam) element).getId().getTextRange().getEndOffset());
             }
 
             if (!key.isEmpty() && keyRange != null) {
                 if (element instanceof CMinusCall || element instanceof CMinusVar) {
                     annotateLocalKeyReferences(key, keyRange, holder, element);
-                } else if (element instanceof CMinusVarDeclaration || element instanceof CMinusConstDeclaration || element instanceof CMinusFunDeclaration) {
+                } else if (element instanceof CMinusVarDeclaration || element instanceof CMinusConstDeclaration || element instanceof CMinusFunDeclaration
+                        || element instanceof CMinusParam) {
                     boolean declarationExists = verifyIfDeclarationExists(key, keyRange, holder, element);
-                    if(element instanceof CMinusFunDeclaration && !declarationExists){
+                    if (element instanceof CMinusFunDeclaration && !declarationExists) {
                         checkReturnType(key, keyRange, holder, (CMinusFunDeclaration) element);
                     }
                 }
@@ -83,11 +87,11 @@ public class CMinusAnnotator implements Annotator {
 
     private void checkReturnType(String key, TextRange keyRange, AnnotationHolder holder, CMinusFunDeclaration element) {
         CMinusTypeSpecifier elementTypeSpecifier = element.getTypeSpecifier();
-        if(!elementTypeSpecifier.getFirstChild().getNode().getElementType().equals(CMinusTypes.VOID)){
+        if (!elementTypeSpecifier.getFirstChild().getNode().getElementType().equals(CMinusTypes.VOID)) {
             CMinusReturnStmt returnStatement = checkIfReturnStatementExists(element, key, keyRange, holder, elementTypeSpecifier);
-            if(returnStatement != null){
+            if (returnStatement != null) {
                 CMinusSimpleExpression simpleExpression = PsiTreeUtil.findChildOfType(returnStatement, CMinusSimpleExpression.class);
-                if(simpleExpression != null){
+                if (simpleExpression != null) {
                     Collection<CMinusFactor> factors = PsiTreeUtil.findChildrenOfType(simpleExpression, CMinusFactor.class);
                     checkTypeMismatch(element.getFunDeclId(), elementTypeSpecifier, factors, keyRange, holder, element);
                 }
@@ -97,7 +101,7 @@ public class CMinusAnnotator implements Annotator {
 
     private CMinusReturnStmt checkIfReturnStatementExists(CMinusFunDeclaration element, String key, TextRange keyRange, AnnotationHolder holder, CMinusTypeSpecifier elementTypeSpecifier) {
         CMinusReturnStmt returnStmt = PsiTreeUtil.findChildOfType(element, CMinusReturnStmt.class);
-        if(returnStmt == null){
+        if (returnStmt == null) {
             holder.newAnnotation(HighlightSeverity.ERROR, "Return statement is missing!")
                     .range(keyRange)
                     .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
@@ -126,6 +130,22 @@ public class CMinusAnnotator implements Annotator {
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.WEAK_WARNING)
                         .create();
+            }
+
+            if (((CMinusVarDeclaration) element).getTypeSpecifier().getFirstChild().getNode().getElementType().equals(CMinusTypes.VOID)) {
+                holder.newAnnotation(HighlightSeverity.ERROR, "You cannot declare a variable of type void")
+                        .range(keyRange)
+                        .highlightType(ProblemHighlightType.WEAK_WARNING)
+                        .create();
+            }
+
+            if (element.getText().contains("[") && element.getText().contains("]")) {
+                if (!((CMinusVarDeclaration) element).getTypeSpecifier().getFirstChild().getNode().getElementType().equals(CMinusTypes.INT)) {
+                    holder.newAnnotation(HighlightSeverity.ERROR, "You cannot declare an array variable of any type different than int")
+                            .range(keyRange)
+                            .highlightType(ProblemHighlightType.WEAK_WARNING)
+                            .create();
+                }
             }
         } else if (element instanceof CMinusFunDeclaration) {
             List<CMinusFunDeclaration> functionReferences = CMinusUtil.findLocalFunctionReferences(element.getContainingFile(), key);
@@ -162,6 +182,22 @@ public class CMinusAnnotator implements Annotator {
                         .range(keyRange)
                         .highlightType(ProblemHighlightType.WEAK_WARNING)
                         .create();
+            }
+        } else if(element instanceof CMinusParam){
+            if (((CMinusParam) element).getTypeSpecifier().getFirstChild().getNode().getElementType().equals(CMinusTypes.VOID)) {
+                holder.newAnnotation(HighlightSeverity.ERROR, "You cannot declare a parameter of type void")
+                        .range(keyRange)
+                        .highlightType(ProblemHighlightType.WEAK_WARNING)
+                        .create();
+            }
+
+            if (element.getText().contains("[") && element.getText().contains("]")) {
+                if (!((CMinusParam) element).getTypeSpecifier().getFirstChild().getNode().getElementType().equals(CMinusTypes.INT)) {
+                    holder.newAnnotation(HighlightSeverity.ERROR, "You cannot declare an array parameter of any type different than int")
+                            .range(keyRange)
+                            .highlightType(ProblemHighlightType.WEAK_WARNING)
+                            .create();
+                }
             }
         }
 
@@ -240,7 +276,7 @@ public class CMinusAnnotator implements Annotator {
                             }
                         }
                     }
-                    if(argumentsSameTypeFlag){
+                    if (argumentsSameTypeFlag) {
                         holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
                                 .range(keyRange).textAttributes(CMinusSyntaxHighlighter.IDENTIFIER).create();
                     }
@@ -333,7 +369,8 @@ public class CMinusAnnotator implements Annotator {
                 if (elementTypeSpecifier.getFirstChild().getNode().getElementType().equals(CMinusTypes.INT)) {
                     if (factor.getNum() == null) {
                         if (factor.getStringLiteral() != null) {
-                            holder.newAnnotation(HighlightSeverity.ERROR, "Type mismatch! '" + elementId + "' is of type '" + elementTypeSpecifier.getFirstChild().getText() + "', you can't assign 'string' value")
+                            holder.newAnnotation(HighlightSeverity.ERROR, "Type mismatch! '" + elementId + "' is of type '" +
+                                    elementTypeSpecifier.getFirstChild().getText() + "', you can't assign 'string' value")
                                     .range(keyRange)
                                     .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
                                     .withFix(new CMinusChangeTypeQuickFix(elementTypeSpecifier, "string"))
@@ -351,7 +388,7 @@ public class CMinusAnnotator implements Annotator {
                             if (factor.getCall() != null) {
                                 isSameType = checkCallTypeMismatch(elementId, keyRange, holder, element, elementTypeSpecifier, factor);
                             } else if (factor.getVar() != null) {
-                                if(!(element instanceof CMinusVar && PsiTreeUtil.getParentOfType(factor.getVar(), CMinusArgList.class) != null)){
+                                if (!(element instanceof CMinusVar && PsiTreeUtil.getParentOfType(factor.getVar(), CMinusArgList.class) != null)) {
                                     CMinusTypeSpecifier variableTypeSpecifier = getVariableReferenceTypeSpecifier(element, factor);
                                     if (variableTypeSpecifier != null) {
                                         isSameType = checkVarTypeMismatch(elementId, keyRange, holder, elementTypeSpecifier, factor, variableTypeSpecifier);
@@ -361,7 +398,8 @@ public class CMinusAnnotator implements Annotator {
                                             CMinusConstDeclaration innerConstReference = innerConstReferences.get(0);
                                             if (innerConstReference.getNum() == null) {
                                                 if (innerConstReference.getStringLiteral() != null) {
-                                                    holder.newAnnotation(HighlightSeverity.ERROR, "Type mismatch! '" + elementId + "' is of type '" + elementTypeSpecifier.getFirstChild().getText() + "', you can't assign 'string' value")
+                                                    holder.newAnnotation(HighlightSeverity.ERROR, "Type mismatch! '" + elementId + "' is of type '" + elementTypeSpecifier.getFirstChild().getText() + "', " +
+                                                            "you can't assign 'string' value")
                                                             .range(keyRange)
                                                             .highlightType(ProblemHighlightType.LIKE_UNKNOWN_SYMBOL)
                                                             .withFix(new CMinusChangeTypeQuickFix(elementTypeSpecifier, "string"))

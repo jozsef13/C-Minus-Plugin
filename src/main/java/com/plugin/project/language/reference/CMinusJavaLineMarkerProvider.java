@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
 import com.intellij.psi.impl.source.tree.java.PsiJavaTokenImpl;
 import com.plugin.project.language.CMinusIcons;
+import com.plugin.project.language.highlighter.CMinusAnnotator;
 import com.plugin.project.language.util.CMinusUtil;
 import com.plugin.project.language.psi.CMinusConstDeclaration;
 import com.plugin.project.language.psi.CMinusFunDeclaration;

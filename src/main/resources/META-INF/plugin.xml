@@ -22,8 +22,8 @@
         <lang.parserDefinition language="CMinus" implementationClass="com.plugin.project.language.parser.CMinusParserDefinition" />
         <lang.syntaxHighlighterFactory language="CMinus" implementationClass="com.plugin.project.language.highlighter.CMinusSyntaxHighlighterFactory" />
         <colorSettingsPage implementation="com.plugin.project.language.settings.CMinusColorSettingsPage" />
-        <annotator language="JAVA" implementationClass="com.plugin.project.language.reference.CMinusAnnotator" />
-        <annotator language="CMinus" implementationClass="com.plugin.project.language.reference.CMinusAnnotator" />
+        <annotator language="JAVA" implementationClass="com.plugin.project.language.highlighter.CMinusAnnotator" />
+        <annotator language="CMinus" implementationClass="com.plugin.project.language.highlighter.CMinusAnnotator" />
         <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.plugin.project.language.reference.CMinusJavaLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="CMinus" implementationClass="com.plugin.project.language.reference.CMinusLocalLineMarkerProvider"/>
         <completion.contributor language="CMinus" implementationClass="com.plugin.project.language.settings.CMinusCompletionContributor"/>

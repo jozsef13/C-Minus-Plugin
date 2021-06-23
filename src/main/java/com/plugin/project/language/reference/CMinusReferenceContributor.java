@@ -4,6 +4,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
+import com.plugin.project.language.highlighter.CMinusAnnotator;
 import org.jetbrains.annotations.NotNull;
 
 public class CMinusReferenceContributor extends PsiReferenceContributor {

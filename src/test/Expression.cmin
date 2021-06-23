@@ -1,0 +1,24 @@
+int calculatePowerN(int base, int powerRaised) {
+    if (powerRaised != 0) {
+        return base* calculatePowerN(base, powerRaised- 1);
+    }
+    else {
+        return 1;
+    }
+}
+
+int main(void) {
+    int mainBase;
+    int mainPowerRaised;
+    int result;
+
+    cout << "Enter base number: ";
+    cin >> mainBase;
+
+    cout << "Enter power number(positive integer): ";
+    cin >> mainPowerRaised;
+
+    cout << calculatePowerN(mainBase, mainPowerRaised);
+
+    return 0;
+}

@@ -11,7 +11,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiLiteralExpression;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.plugin.project.language.reference.CMinusAnnotator;
+import com.plugin.project.language.highlighter.CMinusAnnotator;
 import com.plugin.project.language.util.CMinusUtil;
 import com.plugin.project.language.psi.CMinusConstDeclaration;
 import org.jetbrains.annotations.NotNull;
