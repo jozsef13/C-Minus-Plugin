@@ -1,0 +1,71 @@
+int n2;
+int n1;
+const PI = 3;
+const RANDOM_NUMBER = 12312;
+
+int calculatePowerN(int base, int powerRaised) {
+    int total;
+    int iterator;
+    int returnValue;
+    returnValue = 12;
+    total = 1;
+    while (iterator < powerRaised){
+        total = total* base;
+    }
+
+    return returnValue;
+}
+
+int divide(int number1, int number2){
+    int sum;
+    sum = number1/ number2;
+    return sum;
+}
+
+int multiply(int number1, int number2){
+    int mult;
+    mult = number1+ number2;
+    return mult;
+}
+
+int calculateVolume(int radius){
+    return 4* PI* calculatePowerN(radius, 3)/ 3;
+}
+
+void aFunction(){
+//TODO: print something
+}
+
+int main(void) {
+    int mainBase;
+    int mainPowerRaised;
+    int result;
+
+    int rad;
+    int vol;
+
+    cout << "Enter base number: ";
+    cin >> mainBase;
+
+    cout << "Enter power number(positive integer): ";
+    cin >> mainPowerRaised;
+
+    result = calculatePowerN(mainBase, mainPowerRaised);
+    cout << mainBase << "^" << mainPowerRaised << "=" << result;
+
+    cout << "Enter Radius of Sphere: ";
+    cin >> rad;
+    vol = calculateVolume(rad);
+
+    cout << "Volume of Sphere =" << vol;
+
+    cout << substract(n1, n2);
+
+    return 0;
+}
+int substract(int arg1, int arg2){
+    int subs;
+    subs = arg1- arg2;
+
+    return subs;
+}

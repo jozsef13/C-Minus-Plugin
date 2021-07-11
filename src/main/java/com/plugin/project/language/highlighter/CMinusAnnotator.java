@@ -473,8 +473,8 @@ public class CMinusAnnotator implements Annotator {
                         }
                     }
                 } else if (elementTypeSpecifier.getFirstChild().getNode().getElementType().equals(CMinusTypes.BOOL)) {
-                    if (!(factor.getFirstChild().getNode().getElementType().equals(CMinusTypes.TRUE) ||
-                            !factor.getFirstChild().getNode().getElementType().equals(CMinusTypes.FALSE))) {
+                    if (!(factor.getFirstChild().getNode().getElementType().equals(CMinusTypes.TRUE)) &&
+                            !(factor.getFirstChild().getNode().getElementType().equals(CMinusTypes.FALSE))) {
                         if (factor.getStringLiteral() != null) {
                             holder.newAnnotation(HighlightSeverity.ERROR, "Type mismatch! '" + elementId + "' is of type '" + elementTypeSpecifier.getFirstChild().getText() + "', you can't assign 'string' value")
                                     .range(keyRange)
